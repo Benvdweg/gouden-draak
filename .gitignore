@@ -47,3 +47,5 @@ venv.bak/
 # Environments
 .env
 .venv
+development/scripts/.idea/scripts.iml
+development/scripts/.idea/misc.xml
