@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 import pandas as pd
 import pymysql
 
-# Oude en nieuwe database connectiestrings voor MySQL/MariaDB
+# Oude en nieuwe database connectiestrings voor MySQL/MariaDB, pas eventueel de connectiestrings aan
 old_db_conn_str = 'mysql+pymysql://root:@localhost:3306/live.gouden_draak'
 new_db_conn_str = 'mysql+pymysql://root:@localhost:3306/dev.gouden_draak'
 
