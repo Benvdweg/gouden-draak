@@ -2,6 +2,7 @@
 node_modules/
 npm-debug.log
 yarn-error.log
+/backups/
 
 # Laravel 4 specific
 bootstrap/compiled.php
@@ -21,3 +22,30 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+# Python specific
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.python-version
+
+# Virtual environment
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Pytest
+.cache
+
+# Environments
+.env
+.venv
+development/scripts/.idea/scripts.iml
+development/scripts/.idea/misc.xml
