@@ -1,3 +1,10 @@
+@import 'fonts.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    background-color: darkred;
+    margin: 15px 50px;
+}
