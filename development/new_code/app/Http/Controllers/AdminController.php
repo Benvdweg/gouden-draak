@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Dish;
+use App\Models\DishType;
 
 class AdminController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        return view('admin.index');
+        $dishes = Dish::all();
+        return view('admin.index', compact('dishes'));
+    }
+
+    public function destroy(Dish $dish)
+    {
+        $dish->delete();
+        return redirect()->route('admin')->with('success', 'Dish deleted successfully');
     }
 }

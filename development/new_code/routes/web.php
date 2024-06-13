@@ -10,4 +10,4 @@ Route::get('/', function () {
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-
+Route::delete('/dishes/{dish}', [AdminController::class, 'destroy'])->name('admin.dishes.destroy');
