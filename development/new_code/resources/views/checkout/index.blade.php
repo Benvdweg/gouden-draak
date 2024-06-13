@@ -20,13 +20,15 @@
                 >
             </div>
             <div class="mb-4">
-                <select name="category" class="w-full p-2 border border-gray-300 rounded">
-                    <option value="">Select Category</option>
-                    <option value="starter" {{ request('category') == 'starter' ? 'selected' : '' }}>Starter</option>
-                    <option value="main" {{ request('category') == 'main' ? 'selected' : '' }}>Main Course</option>
-                    <option value="dessert" {{ request('category') == 'dessert' ? 'selected' : '' }}>Dessert</option>
-                    <!-- Voeg meer categorieën toe indien nodig -->
-                </select>
+     <select name="category" class="w-full p-2 border border-gray-300 rounded">
+            <option value="">Select Category</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                    {{ $category->type }}
+            </option>
+        @endforeach
+    </select>
+
             </div>
             <div class="text-right">
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Search</button>
