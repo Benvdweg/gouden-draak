@@ -9,7 +9,7 @@ use App\Models\DishType;
 
 class CheckoutController extends Controller
 {
-    public function show(Request $request)
+    public function index(Request $request)
     {
         $query = Dish::query();
 
