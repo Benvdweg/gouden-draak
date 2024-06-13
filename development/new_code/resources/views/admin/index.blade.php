@@ -20,7 +20,7 @@
                     <tr>
                         <th class="border-b py-2 text-left">Naam</th>
                         <th class="border-b py-2 text-left">Prijs</th>
-                        <th class="border-b py-2 text-left pl-24">Beschrijving</th>
+                        <th class="border-b py-2 text-left">Beschrijving</th>
                         <th class="border-b py-2 text-left">Categorie</th>
                         <th class="border-b py-2 text-left">Acties</th>
                     </tr>
@@ -30,7 +30,7 @@
                         <tr>
                             <td class="border-b py-2">{{ $dish->name }}</td>
                             <td class="border-b py-2">{{ $dish->price }}</td>
-                            <td class="border-b py-2 pl-24">{{ $dish->description }}</td>
+                            <td class="border-b py-2 pl-4">{{ $dish->description }}</td>
                             <td class="border-b py-2">{{ $dish->type->name ?? 'Geen categorie' }}</td>
                             <td class="border-b py-2">
                                 <form action="{{ route('admin.dishes.destroy', $dish->id) }}" method="POST" class="inline-block">
@@ -45,6 +45,9 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="mt-6 flex justify-center">
+            {{ $dishes->links() }}
         </div>
     </div>
 </body>

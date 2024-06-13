@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $dishes = Dish::all();
+        $dishes = Dish::paginate(8);
         return view('admin.index', compact('dishes'));
     }
 
