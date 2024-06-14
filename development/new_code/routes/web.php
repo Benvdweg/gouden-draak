@@ -5,7 +5,6 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,12 +28,3 @@ Route::get('/dishes/{dish}/edit', [AdminController::class, 'edit'])->name('admin
 Route::put('/dishes/{dish}', [AdminController::class, 'update'])->name('admin.dishes.update');
 
 Route::get('/contact', [CustomerController::class, 'index'])->name('customer.contact');
-
-Route::get('/tablet/bestellen', [DashboardController::class, 'showTabletDashboard'])->name('tablet.index');
-Route::get('/tablet/bestellen/{dishtype}', [DashboardController::class, 'showTabletDishes'])->name('tablet.category');
-Route::post('/tablet/bestellen/toevoegen/{dish}', [OrderController::class, 'addToOrder'])->name('order.add');
-Route::get('/tablet/bestellingen', [OrderController::class, 'showOrders'])->name('orders.index');
-
-Route::fallback(function () {
-    return view('index');
-});
