@@ -13,7 +13,7 @@
                 {{--                Aanbieding implementatie--}}
             </div>
             <div class="text-center mt-8">
-                <a href="#" class="text-yellow-400 text-2xl font-bold">
+                <a href="{{ route('customer.contact') }}" class="text-yellow-400 text-2xl font-bold">
                     Naar Contact
                 </a>
             </div>
