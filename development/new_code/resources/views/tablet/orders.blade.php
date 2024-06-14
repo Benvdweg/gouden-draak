@@ -4,8 +4,8 @@
     <div>
         <div class="justify-start flex">
             <a href="{{ route('tablet.index') }}"
-               class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full w-24 justify-center mb-4">
-                Terug
+               class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full w-48 justify-center mb-4">
+                Naar Gerechten
             </a>
         </div>
     </div>

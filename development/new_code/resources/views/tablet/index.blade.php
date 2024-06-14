@@ -5,8 +5,8 @@
     <div>
         <div class="justify-start flex">
             <a href="{{route('orders.index')}}"
-               class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full w-24 justify-center mb-4">
-                Winkelwagen
+               class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 p-2 rounded-full w-56 justify-center mb-4">
+                Naar Winkelwagen
             </a>
         </div>
     </div>
