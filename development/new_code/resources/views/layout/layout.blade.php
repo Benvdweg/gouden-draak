@@ -5,8 +5,7 @@
     @vite('resources/js/app.js')
     <title>De Gouden Draak</title>
 </head>
-
-    <body>
-        @yield('content')
-    </body>
+<body>
+@yield('content')
+</body>
 </html>

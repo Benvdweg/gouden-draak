@@ -3,10 +3,13 @@
 <head>
     @vite('resources/css/admin-app.css')
     @vite('resources/js/app.js')
-    <title>De Gouden Draak</title>
+    <title>De Gouden Admin</title>
 </head>
 
 <body>
-@yield('content')
+<div class="flex">
+    @include('layout.admin-nav-bar')
+    @yield('content')
+</div>
 </body>
 </html>

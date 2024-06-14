@@ -1,7 +1,7 @@
 @extends('layout.admin-layout')
 
 @section('content')
-    <div class="container mx-auto">
+    <div class="container mx-auto mt-8">
         <h1 class="text-3xl font-bold mb-6 text-center">Gerechten Beheren</h1>
         @if(session('success'))
             <div class="bg-green-500 text-white p-4 rounded mb-6">
