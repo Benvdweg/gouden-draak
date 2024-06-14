@@ -19,19 +19,19 @@ class AdminController extends Controller
     }
 
     public function destroy(Dish $dish)
-{
-    $menuNumber = $dish->menu_number;
+    {
+        $menuNumber = $dish->menu_number;
 
-    $dish->delete();
+        $dish->delete();
 
-    DB::statement("
+        DB::statement("
         UPDATE dishes
         SET menu_number = menu_number - 1
         WHERE menu_number > :menuNumber
     ", ['menuNumber' => $menuNumber]);
 
-    return redirect()->route('admin.dishes')->with('success', 'Dish deleted successfully');
-}
+        return redirect()->route('admin.dishes')->with('success', 'Dish deleted successfully');
+    }
 
     public function create()
     {
@@ -49,7 +49,7 @@ class AdminController extends Controller
             'type' => 'required',
         ]);
 
-    $nextMenuNumber = Dish::max('menu_number') + 1;
+        $nextMenuNumber = Dish::max('menu_number') + 1;
 
         Dish::create([
             'name' => $request->input('name'),
@@ -60,7 +60,7 @@ class AdminController extends Controller
         ]);
 
         return redirect()->route('admin.dishes')
-        ->with('success', 'Gerecht is succesvol toegevoegd!');
+            ->with('success', 'Gerecht is succesvol toegevoegd!');
     }
 
     public function edit(Dish $dish)
@@ -69,34 +69,34 @@ class AdminController extends Controller
     }
 
     public function update(Request $request, Dish $dish)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'price' => 'required|numeric',
-        'description' => 'nullable|string',
-        'menu_number' => 'nullable|integer',
-        'toevoeging' => 'nullable|string|max:10',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'nullable|string',
+            'menu_number' => 'nullable|integer',
+            'toevoeging' => 'nullable|string|max:10',
+        ]);
 
-    // Als er een toevoeging is opgegeven
-    if ($request->has('toevoeging')) {
-        // Controleren of de opgegeven toevoeging al bestaat in de database
-        $addition = Addition::firstOrCreate(['letter' => $request->toevoeging]);
-        $additionId = $addition->id;
-    } else {
-        // Geen toevoeging opgegeven, gebruik null voor addition_id
-        $additionId = null;
+        // Als er een toevoeging is opgegeven
+        if ($request->filled('toevoeging')) {
+            // Controleren of de opgegeven toevoeging al bestaat in de database
+            $addition = Addition::firstOrCreate(['letter' => $request->toevoeging]);
+            $additionId = $addition->id;
+        } else {
+            // Geen toevoeging opgegeven, gebruik null voor addition_id
+            $additionId = null;
+        }
+
+        // Bijwerken van het gerecht
+        $dish->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'menu_number' => $request->menu_number,
+            'addition_id' => $additionId,
+        ]);
+
+        return redirect()->route('admin.dishes')->with('success', 'Gerecht succesvol bijgewerkt');
     }
-
-    // Bijwerken van het gerecht
-    $dish->update([
-        'name' => $request->name,
-        'price' => $request->price,
-        'description' => $request->description,
-        'menu_number' => $request->menu_number,
-        'addition_id' => $additionId, // Gebruik het id van de bestaande of nieuwe toevoeging, of null als er geen is opgegeven
-    ]);
-
-    return redirect()->route('admin.dishes')->with('success', 'Gerecht succesvol bijgewerkt');
-}
 }
