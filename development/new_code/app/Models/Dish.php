@@ -15,4 +15,9 @@ class Dish extends Model
     {
         return $this->belongsTo(DishType::class, 'type_id');
     }
+
+    public function addition()
+    {
+        return $this->belongsTo(Addition::class);
+    }
 }
