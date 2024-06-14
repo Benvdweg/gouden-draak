@@ -23,5 +23,14 @@
                 <p>Nog geen gerechten.</p>
             @endforelse
         </div>
+
+        @if(!empty($orders))
+            <form method="POST" action="{{ route('orders.process') }}">
+                @csrf
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
+                    Bestelling Verzenden
+                </button>
+            </form>
+        @endif
     </div>
 @endsection

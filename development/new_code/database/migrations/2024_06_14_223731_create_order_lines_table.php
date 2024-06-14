@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('order_id')->index('order_id');
             $table->integer('dish_id')->index('dish_id');
             $table->integer('round_number')->nullable();
-            $table->string('comment')->nullable();
+            $table->text('comment')->nullable();
 
             $table->primary(['id']);
         });

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id', true)->unique('id');
             $table->string('email')->nullable()->unique('email');
             $table->dateTime('order_time')->nullable();
-            $table->integer('table_number');
+            $table->integer('table_number')->nullable();
             $table->string('bill_pdf')->nullable();
             $table->integer('reservation_id')->nullable();
             $table->primary(['id']);
