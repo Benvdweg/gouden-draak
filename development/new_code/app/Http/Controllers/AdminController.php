@@ -11,7 +11,9 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $dishes = Dish::paginate(8);
+        $dishes = Dish::whereNotNull('menu_number')
+                  ->orWhereNotNull('addition_id')
+                  ->paginate(8);
 
         return view('admin.index', compact('dishes'));
     }
@@ -37,6 +39,10 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'price' => str_replace(',', '.', $request->price),
+        ]);
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -60,6 +66,7 @@ class AdminController extends Controller
 
     public function edit(Dish $dish)
     {
+        $dish->addition = json_decode($dish->addition);
         return view('admin.edit', compact('dish'));
     }
 
