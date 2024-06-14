@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomerController;
 
 Route::get('/', function () {
     return view('index');
@@ -28,6 +28,3 @@ Route::get('/dishes/{dish}/edit', [AdminController::class, 'edit'])->name('admin
 Route::put('/dishes/{dish}', [AdminController::class, 'update'])->name('admin.dishes.update');
 
 Route::get('/contact', [CustomerController::class, 'index'])->name('customer.contact');
-
-
-
