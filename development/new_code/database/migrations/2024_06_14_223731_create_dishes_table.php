@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('type_id')->nullable()->index('type_id');
             $table->unsignedInteger('menu_number')->nullable();
             $table->integer('addition_id')->nullable()->index('addition_id');
-
             $table->primary(['id']);
         });
     }
