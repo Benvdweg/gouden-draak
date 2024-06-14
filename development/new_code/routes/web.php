@@ -16,7 +16,7 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.dishes');
 Route::get('/admin/nieuws-berichten', [NewsController::class, 'show'])->name('admin.news.index');
 Route::post('/admin/nieuws-berichten', [NewsController::class, 'store'])->name('admin.news.store');
 
-Route::delete('/dishes/{dish}', [AdminController::class, 'destroy'])->name('admin.dishes.destroy');
+Route::delete('/dishes', [AdminController::class, 'destroy'])->name('admin.dishes.destroy');
 
 Route::get('/nieuws', [DashboardController::class, 'showNews'])->name('news.show');
 

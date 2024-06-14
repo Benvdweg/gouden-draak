@@ -19,7 +19,7 @@ class AdminController extends Controller
     {
         $dish->delete();
 
-        return redirect()->route('admin')->with('success', 'Dish deleted successfully');
+        return redirect()->route('admin.dishes')->with('success', 'Dish deleted successfully');
     }
 
     public function create()
