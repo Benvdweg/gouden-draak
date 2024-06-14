@@ -12,7 +12,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="price" class="block text-sm font-medium text-gray-700">Prijs</label>
-                    <input type="number" name="price" id="price" class="form-input mt-1 block w-full" required>
+                    <input type="text" name="price" id="price" class="form-input mt-1 block w-full" required>
                 </div>
                 <div class="mb-4">
                     <label for="description" class="block text-sm font-medium text-gray-700">Beschrijving</label>

@@ -42,6 +42,10 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'price' => str_replace(',', '.', $request->price),
+        ]);
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
