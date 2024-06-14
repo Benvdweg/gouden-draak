@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto">
-        <h1 class="text-3xl font-bold mb-6 text-center">Gerechten Beheren</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center">Menu kaart beheren</h1>
         @if(session('success'))
             <div class="bg-green-500 text-white p-4 rounded mb-6">
                 {{ session('success') }}
@@ -15,7 +15,7 @@
                     <th class="border-b py-2 text-left">Naam</th>
                     <th class="border-b py-2 text-left">Prijs</th>
                     <th class="border-b py-2 text-left">Beschrijving</th>
-                    <th class="border-b py-2 text-left">Categorie</th>
+                    <th class="border-b py-2 text-left">Menu Nummer</th>
                     <th class="border-b py-2 text-left">Acties</th>
                 </tr>
                 </thead>
@@ -25,7 +25,14 @@
                         <td class="border-b py-2">{{ $dish->name }}</td>
                         <td class="border-b py-2">{{ $dish->price }}</td>
                         <td class="border-b py-2 pl-4">{{ $dish->description }}</td>
-                        <td class="border-b py-2">{{ $dish->type->name ?? 'Geen categorie' }}</td>
+                        <td class="border-b py-2">
+                            @if ($dish->menu_number)
+                            {{ $dish->menu_number }}
+                            @endif
+                            @if ($dish->addition)
+                            {{ $dish->addition->letter }}
+                            @endif
+                        </td>
                         <td class="border-b py-2">
                             <form action="{{ route('admin.dishes.destroy', $dish->id) }}" method="POST" class="inline-block">
                                 @csrf
