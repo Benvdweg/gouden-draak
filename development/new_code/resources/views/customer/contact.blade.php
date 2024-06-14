@@ -22,37 +22,6 @@
 	
 	<body>          
     <table width=100%>
-						<tr>
-							<td colspan='3'>
-								<p>
-									<img src="../pictures/dragon-small.png" style="float:left;height:200px" alt="Golden Dragon"> 
-									<img src="../pictures/dragon-small-flipped.png" style="float:right;height:200px" alt="Golden Dragon"> 
-									<span style="font-size:40px;font-weight:bold;color:yellow">Chinees Indische Specialiteiten</span><br>
-									<span style="font-size:50px;font-weight:bold;color:yellow">De Gouden Draak</span><br>
-								</p>
-								<p>
-									<table style="margin:auto;font-size:20px;color:white" border="1px solid white">
-										<tr background="../pictures/menu_bg_gradient.png">
-											<td valign="middle">
-												<a href="MENUKAART.html" style="color:white">
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Menukaart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												</a>
-											</td>
-											<td valign="middle">
-												<a href="news.html" style="color:white">
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nieuws&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												</a>											</td>
-											</td>
-											<td valign="middle">
-												<a href="contact.html" style="color:white">
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												</a>
-											</td>
-										</tr>
-									</table>
-								</p>
-							</td>
-						</tr>
 						<tr style="padding-top:50px">
 							<td colspan="3" height="50px">	
 							</td>
@@ -81,7 +50,12 @@
 						</tr>
 					</table>
 					<br>
-					<div text-align="center"><a href="contact_new.html">Naar Contact</a></div>
+					<div class="text-center mt-8">
+                <a href="{{ route('customer.contact') }}" class="text-yellow-400 text-2xl font-bold">
+                    Naar Contact
+                </a>
+            </div>
 	</body>
 
 @endsection
+
