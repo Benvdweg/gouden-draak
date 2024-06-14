@@ -19,4 +19,40 @@ class AdminController extends Controller
 
         return redirect()->route('admin')->with('success', 'Dish deleted successfully');
     }
+
+    public function create()
+    {
+        $types = DishType::pluck('type', 'id')->toArray();
+
+        return view('admin.createDish', compact('types'));
+    }
+
+    // Methode om een nieuw gerecht op te slaan
+    public function store(Request $request)
+    {
+        // Valideer de input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'description' => 'nullable|string',
+            'type' => 'required',
+        ]);
+
+    $nextMenuNumber = Dish::max('menu_number') + 1;
+
+        // Maak een nieuw gerecht aan in de database
+        Dish::create([
+            'name' => $request->input('name'),
+            'price' => $request->input('price'),
+            'description' => $request->input('description'),
+            'type' => $request->input('type'),
+            'menu_number' => $nextMenuNumber,
+        ]);
+
+        dd($request->all());
+
+        // Redirect naar de indexpagina met een succesbericht
+        return redirect()->route('admin')
+        ->with('success', 'Gerecht is succesvol toegevoegd!');
+    }
 }
