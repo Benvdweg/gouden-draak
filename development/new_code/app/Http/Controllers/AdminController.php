@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Dish;
 use App\Models\DishType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class AdminController extends Controller
 {
@@ -16,11 +18,19 @@ class AdminController extends Controller
     }
 
     public function destroy(Dish $dish)
-    {
-        $dish->delete();
+{
+    $menuNumber = $dish->menu_number;
 
-        return redirect()->route('admin.dishes')->with('success', 'Dish deleted successfully');
-    }
+    $dish->delete();
+
+    DB::statement("
+        UPDATE dishes
+        SET menu_number = menu_number - 1
+        WHERE menu_number > :menuNumber
+    ", ['menuNumber' => $menuNumber]);
+
+    return redirect()->route('admin.dishes')->with('success', 'Dish deleted successfully');
+}
 
     public function create()
     {
@@ -29,10 +39,8 @@ class AdminController extends Controller
         return view('admin.createDish', compact('types'));
     }
 
-    // Methode om een nieuw gerecht op te slaan
     public function store(Request $request)
     {
-        // Valideer de input
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -42,7 +50,6 @@ class AdminController extends Controller
 
     $nextMenuNumber = Dish::max('menu_number') + 1;
 
-        // Maak een nieuw gerecht aan in de database
         Dish::create([
             'name' => $request->input('name'),
             'price' => $request->input('price'),
@@ -51,7 +58,6 @@ class AdminController extends Controller
             'menu_number' => $nextMenuNumber,
         ]);
 
-        // Redirect naar de indexpagina met een succesbericht
         return redirect()->route('admin.dishes')
         ->with('success', 'Gerecht is succesvol toegevoegd!');
     }
