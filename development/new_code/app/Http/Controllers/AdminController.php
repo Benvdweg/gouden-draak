@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dish;
 use App\Models\DishType;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -50,10 +51,8 @@ class AdminController extends Controller
             'menu_number' => $nextMenuNumber,
         ]);
 
-        dd($request->all());
-
         // Redirect naar de indexpagina met een succesbericht
-        return redirect()->route('admin')
+        return redirect()->route('admin.dishes')
         ->with('success', 'Gerecht is succesvol toegevoegd!');
     }
 }
