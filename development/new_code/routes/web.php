@@ -22,3 +22,7 @@ Route::get('/nieuws', [DashboardController::class, 'showNews'])->name('news.show
 
 Route::get('/admin/dishes/create', [AdminController::class, 'create'])->name('admin.dishes.create');
 Route::post('/admin/dishes', [AdminController::class, 'store'])->name('admin.dishes.store');
+
+Route::get('/dishes/{dish}/edit', [AdminController::class, 'edit'])->name('admin.dishes.edit');
+Route::put('/dishes/{dish}', [AdminController::class, 'update'])->name('admin.dishes.update');
+
