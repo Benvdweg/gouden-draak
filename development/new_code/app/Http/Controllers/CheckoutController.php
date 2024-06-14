@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Dish;
 use App\Models\DishType;
-
+use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
@@ -14,8 +13,8 @@ class CheckoutController extends Controller
         $query = Dish::query();
 
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->input('search') . '%')
-                  ->orWhere('id', $request->input('search'));
+            $query->where('name', 'like', '%'.$request->input('search').'%')
+                ->orWhere('id', $request->input('search'));
         }
 
         if ($request->filled('category')) {
