@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomerController;
 
 Route::get('/', function () {
     return view('index');
@@ -29,5 +30,11 @@ Route::put('/dishes/{dish}', [AdminController::class, 'update'])->name('admin.di
 
 Route::get('/contact', [CustomerController::class, 'index'])->name('customer.contact');
 
+Route::get('/tablet/bestellen', [DashboardController::class, 'showTabletDashboard'])->name('tablet.index');
+Route::get('/tablet/bestellen/{dishtype}', [DashboardController::class, 'showTabletDishes'])->name('tablet.category');
+Route::post('/tablet/bestellen/toevoegen/{dish}', [OrderController::class, 'addToOrder'])->name('order.add');
+Route::get('/tablet/bestellingen', [OrderController::class, 'showOrders'])->name('orders.index');
 
-
+Route::fallback(function () {
+    return view('index');
+});

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Addition;
 use App\Models\Dish;
 use App\Models\DishType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Addition;
-
 
 class AdminController extends Controller
 {
@@ -24,11 +22,8 @@ class AdminController extends Controller
 
         $dish->delete();
 
-        DB::statement("
-        UPDATE dishes
-        SET menu_number = menu_number - 1
-        WHERE menu_number > :menuNumber
-    ", ['menuNumber' => $menuNumber]);
+        Dish::where('menu_number', '>', $menuNumber)
+            ->decrement('menu_number');
 
         return redirect()->route('admin.dishes')->with('success', 'Dish deleted successfully');
     }
