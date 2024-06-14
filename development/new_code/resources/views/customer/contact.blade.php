@@ -49,12 +49,6 @@
 							</td>
 						</tr>
 					</table>
-					<br>
-					<div class="text-center mt-8">
-                <a href="{{ route('customer.contact') }}" class="text-yellow-400 text-2xl font-bold">
-                    Naar Contact
-                </a>
-            </div>
 	</body>
 
 @endsection
