@@ -13,7 +13,9 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $dishes = Dish::paginate(8);
+        $dishes = Dish::whereNotNull('menu_number')
+                  ->orWhereNotNull('addition_id')
+                  ->paginate(8);
 
         return view('admin.index', compact('dishes'));
     }
