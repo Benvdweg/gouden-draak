@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NewsMessage;
 use Illuminate\Http\Request;
 use App\Models\Dish;
 use App\Models\DishType;
@@ -18,5 +19,11 @@ class AdminController extends Controller
     {
         $dish->delete();
         return redirect()->route('admin')->with('success', 'Dish deleted successfully');
+    }
+
+    public function showNewsIndex()
+    {
+        $news = NewsMessage::all();
+        return view('admin.news-index', compact('news'));
     }
 }
