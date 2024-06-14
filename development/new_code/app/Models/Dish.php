@@ -9,7 +9,14 @@ class Dish extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'name', 'price', 'description', 'type_id'];
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    protected $fillable = ['id', 'name', 'price', 'description', 'type_id', 'menu_number', 'addition_id'];
 
     public function type()
     {

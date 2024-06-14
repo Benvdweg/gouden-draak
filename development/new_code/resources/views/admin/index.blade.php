@@ -9,6 +9,11 @@
 <body class="bg-gray-100 p-6">
     <div class="container mx-auto">
         <h1 class="text-3xl font-bold mb-6 text-center">Gerechten Beheren</h1>
+        <div class="mb-6 flex justify-end">
+            <a href="{{ route('admin.dishes.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Gerecht Toevoegen
+            </a>
+        </div>
         @if(session('success'))
             <div class="bg-green-500 text-white p-4 rounded mb-6">
                 {{ session('success') }}
