@@ -65,6 +65,7 @@ class AdminController extends Controller
 
     public function edit(Dish $dish)
     {
+        $dish->addition = json_decode($dish->addition);
         return view('admin.edit', compact('dish'));
     }
 

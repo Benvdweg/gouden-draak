@@ -32,7 +32,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="toevoeging" class="block text-sm font-medium text-gray-700">Toevoeging</label>
-                    <input type="text" name="toevoeging" id="toevoeging" value="{{ $dish->addition }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <input type="text" name="toevoeging" id="toevoeging" value="{{ $dish->addition->letter }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                 </div>
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Update</button>
             </form>
