@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('news_messages', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('message');
-            $table->timestamps();
+        Schema::create('dish_types', function (Blueprint $table) {
+            $table->integer('id', true)->unique('id');
+            $table->string('type');
+
+            $table->primary(['id']);
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('news_messages');
+        Schema::dropIfExists('dish_types');
     }
 };
