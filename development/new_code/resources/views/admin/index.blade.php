@@ -29,7 +29,7 @@
                     <tr>
                         <td class="border-b py-2">{{ $dish->name }}</td>
                         <td class="border-b py-2">{{ $dish->price }}</td>
-                        <td class="border-b py-2 pl-4">{{ $dish->description }}</td>
+                        <td class="border-b py-2 whitespace-nowrap overflow-hidden overflow-ellipsis max-w-xs">{{ $dish->description }}</td>
                         <td class="border-b py-2">
                             @if ($dish->menu_number)
                             {{ $dish->menu_number }}
