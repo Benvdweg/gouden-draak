@@ -9,6 +9,11 @@
             </div>
         @endif
         <div class="bg-white p-6 rounded shadow-md mb-6">
+        <div class="mb-6 flex justify-end">
+            <a href="{{ route('admin.dishes.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Gerecht Toevoegen
+            </a>
+        </div>
             <table class="w-full border-collapse">
                 <thead>
                 <tr>

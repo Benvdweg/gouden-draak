@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dish;
+use App\Models\DishType;
 
 class AdminController extends Controller
 {
