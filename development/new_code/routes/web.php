@@ -46,6 +46,12 @@ Route::get('/admin/reserveringen', [ReservationController::class, 'index'])->nam
 Route::post('/reservations/{reservation}/assign-table', [ReservationController::class, 'assignTable'])
     ->name('reservations.assignTable');
 
+
+Route::post('/order/favorite/{dish}', [OrderController::class, 'favorite'])->name('order.favorite');
+
+Route::post('/tabletOrder/favorite/{dish}', [TabletOrderController::class, 'favorite'])->name('tabletOrder.favorite');
+Route::get('/tablet/favorites', [TabletOrderController::class, 'showFavorites'])->name('tablet.favorites');
+
 Route::fallback(function () {
     return view('index');
 });

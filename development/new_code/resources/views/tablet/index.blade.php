@@ -12,6 +12,10 @@
 
             <div>
                 <span class="font-bold text-xl">Tafelnummer {{$reservation->table_number}}</span>
+                <a href="{{ route('tablet.favorites') }}"
+                   class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500">
+                    Favorieten
+                </a>
             </div>
         </div>
     </div>

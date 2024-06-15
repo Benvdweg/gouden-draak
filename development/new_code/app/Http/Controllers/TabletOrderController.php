@@ -131,4 +131,32 @@ class TabletOrderController extends Controller
 
         return redirect()->route('tablet.index')->with('success', 'De bestelling is onderweg.');
     }
+
+    public function favorite(Request $request, Dish $dish)
+{
+    $favorites = $request->session()->get('favorites', []);
+
+    if (!in_array($dish->id, $favorites)) {
+        $favorites[] = $dish->id;
+    }
+
+    else{
+        $favorites = array_diff($favorites, [$dish->id]);
+        $message = 'Gerecht niet meer gemarkeerd als favoriet.';
+    }
+
+    $request->session()->put('favorites', $favorites);
+
+    return redirect()->back()->with('success', 'Gerecht gemarkeerd als favoriet!');
+}
+
+public function showFavorites()
+    {
+        $favoriteIds = session()->get('favorites', []);
+
+        $favorites = Dish::whereIn('id', $favoriteIds)->get();
+        return view('tablet.favorites', [
+            'favorites' => $favorites,
+        ]);
+    }
 }
