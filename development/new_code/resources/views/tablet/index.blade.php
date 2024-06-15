@@ -16,6 +16,10 @@
                    class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500">
                     Favorieten
                 </a>
+                    <a href="{{ route('tablet.order_history') }}"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 ml-2">
+                        Bestellingsgeschiedenis
+                    </a>
             </div>
         </div>
     </div>

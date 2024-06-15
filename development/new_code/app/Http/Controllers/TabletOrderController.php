@@ -159,4 +159,45 @@ public function showFavorites()
             'favorites' => $favorites,
         ]);
     }
+
+    public function orderHistory()
+{
+    $reservation = session('current_reservation');
+
+    $orders = Order::where('reservation_id', $reservation->id);
+
+    $orders = $orders->get();
+
+    return view('tablet.order_history', compact('orders'));
+}
+
+public function showPrevOrder($roundNumber)
+{
+    $orderLines = OrderLine::where('round_number', $roundNumber)->get();
+
+    return view('tablet.show_prev_order', compact('orderLines', 'roundNumber'));
+}
+
+public function addWholeOrder(Request $request)
+{
+    $orderLineIds = $request->input('orderlines', []);
+
+    $orderLines = OrderLine::whereIn('id', $orderLineIds)->get();
+
+    foreach ($orderLines as $orderLine) {
+
+        $dish = $orderLine->dish;
+
+        $order = $request->session()->get('orders', []);
+
+        $order[] = [
+            'id' => $dish->id,
+            'name' => $dish->name,
+            'price' => $dish->price,
+        ];
+
+        $request->session()->put('orders', $order);
+    }
+    return redirect()->route('tablet.index')->with('success', 'Hele bestelling is toegevoegd.');
+}
 }

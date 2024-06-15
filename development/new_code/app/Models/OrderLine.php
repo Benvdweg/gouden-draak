@@ -21,4 +21,9 @@ class OrderLine extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function dish(): BelongsTo
+    {
+        return $this->belongsTo(Dish::class, 'dish_id');
+    }
 }

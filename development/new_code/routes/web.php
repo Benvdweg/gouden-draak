@@ -52,6 +52,16 @@ Route::post('/order/favorite/{dish}', [OrderController::class, 'favorite'])->nam
 Route::post('/tabletOrder/favorite/{dish}', [TabletOrderController::class, 'favorite'])->name('tabletOrder.favorite');
 Route::get('/tablet/favorites', [TabletOrderController::class, 'showFavorites'])->name('tablet.favorites');
 
+Route::get('/tablet/order-history', [TabletOrderController::class, 'orderHistory'])->name('tablet.order_history');
+
+Route::post('/tablet/addWhole', [TabletOrderController::class, 'addWholeOrder'])->name('tablet.addWhole');
+
+Route::get('/order/{round_number}', [TabletOrderController::class, 'showPrevOrder'])->name('order.show');
+
+
+
+
+
 Route::fallback(function () {
     return view('index');
 });
