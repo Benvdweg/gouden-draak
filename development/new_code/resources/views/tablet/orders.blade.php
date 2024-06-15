@@ -9,7 +9,7 @@
             </a>
 
             <div>
-                <span class="font-bold text-xl">Tafelnummer</span>
+                <span class="font-bold text-xl">Tafelnummer {{$reservation->table_number}}</span>
             </div>
         </div>
     </div>
