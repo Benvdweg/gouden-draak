@@ -20,7 +20,6 @@ class TabletOrderController extends Controller
     public function showTabletIndex()
     {
         $categories = DishType::orderBy('type')->get();
-
         $reservation = session('current_reservation');
 
         return view('tablet.index', compact('categories', 'reservation'));
@@ -43,8 +42,7 @@ class TabletOrderController extends Controller
     {
         $request->validate(['email' => 'required']);
 
-        $request->session()->forget('email');
-        $request->session()->forget('current_reservation');
+        $request->session()->forget(['email', 'current_reservation']);
 
         $request->session()->flash('email', $request->email);
 
@@ -57,11 +55,11 @@ class TabletOrderController extends Controller
             ->where('endtime', '>=', $currentTime)
             ->first();
 
-        if ($reservation) {
-            $request->session()->put('current_reservation', $reservation);
-        } else {
+        if (!$reservation) {
             return redirect()->back()->with('error', 'Geen geldige reservering gevonden.');
         }
+
+        $request->session()->put('current_reservation', $reservation);
 
         return redirect()->route('tablet.index');
     }
@@ -100,21 +98,24 @@ class TabletOrderController extends Controller
                 ->with('error', "Je moet nog {$orderCheck['waitMessage']} wachten voordat je een nieuwe bestelling kunt plaatsen.");
         }
 
-        $orders = $request->session()->get('orders', []);
+        $orders = $request->session()->pull('orders', []);
 
         $newOrder = Order::create([
             'order_time' => Carbon::now(),
             'reservation_id' => $reservation->id,
         ]);
 
+        $orderLines = [];
         foreach ($orders as $order) {
-            OrderLine::create([
+            $orderLines[] = [
                 'order_id' => $newOrder->id,
                 'dish_id' => $order['id'],
-            ]);
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
         }
 
-        $request->session()->forget('orders');
+        OrderLine::insert($orderLines);
 
         return redirect()->route('tablet.index')->with('success', 'De bestelling is onderweg.');
     }
