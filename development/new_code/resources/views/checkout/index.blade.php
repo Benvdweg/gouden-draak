@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 p-6">
+@extends('layout.checkout-layout')
+
+@section('content')
 <div class="container mx-auto">
     <h1 class="text-3xl font-bold mb-6 text-center">Checkout Page</h1>
     <form method="GET" action="{{ route('checkout') }}" class="bg-white p-6 rounded shadow-md mb-6">
@@ -48,5 +42,5 @@
         @endforelse
     </ul>
 </div>
-</body>
-</html>
+
+@endsection

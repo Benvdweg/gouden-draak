@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Dish;
 use App\Models\DishType;
+use App\Models\Order;
+use App\Models\OrderLine;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -28,5 +30,39 @@ class CheckoutController extends Controller
             'dishes' => $dishes,
             'categories' => $categories,
         ]);
+    }
+
+    public function showOrders()
+{
+    $orders = Order::orderBy('order_time', 'desc')->paginate(8);
+
+    return view('checkout.orders', ['orders' => $orders]);
+}
+
+    public function showOrderLines(Order $order)
+    {
+        return view('checkout.orderLines', ['order' => $order]);
+    }
+
+    public function showComment($orderLineId)
+{
+    $orderLine = OrderLine::find($orderLineId);
+    return view('checkout.comment', ['orderLine' => $orderLine]);
+}
+
+public function updateComment(Request $request, $orderId)
+    {
+        $request->validate([
+            'opmerking' => 'required|string|max:255',
+        ]);
+
+        $orderLine = OrderLine::findOrFail($orderId);
+
+        $orderLine->comment = $request->input('opmerking');
+        $orderLine->save();
+
+        $orders = Order::orderBy('order_time', 'desc')->paginate(8);
+
+        return redirect()->route('checkout.orders', ['orders' => $orders])->with('success', 'Opmerking succesvol bijgewerkt.');
     }
 }

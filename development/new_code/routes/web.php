@@ -14,6 +14,14 @@ Route::get('/', function () {
 });
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::get('/orders', [CheckoutController::class, 'showOrders'])->name('checkout.orders');
+Route::get('/orders/{order}/orderLines', [CheckoutController::class, 'showOrderLines'])->name('checkout.orderLines');
+Route::get('/orders/{orderLine}/comment', [CheckoutController::class, 'showComment'])->name('checkout.comment');
+Route::put('/orders/{orderId}/update-comment', [CheckOutController::class, 'updateComment'])
+->name('orders.updateComment');
+
+Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.dishes');
 
 Route::get('/admin/nieuws-berichten', [NewsController::class, 'show'])->name('admin.news.index');
