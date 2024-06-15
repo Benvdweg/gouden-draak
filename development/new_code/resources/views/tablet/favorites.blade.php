@@ -3,9 +3,7 @@
 @section('content')
     <div>
     <h2 class="text-2xl font-bold mb-4 text-center">Mijn Favorieten</h2>
-
-        @if(count($favorites) > 0)
-        <div>
+    <div>
         <div class="justify-between flex">
             <a href="{{route('tablet.index')}}"
                class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full w-24 justify-center mb-4">
@@ -13,6 +11,7 @@
             </a>
             </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        @if(count($favorites) > 0)
     @foreach($favorites as $dish)
     <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-center items-center">
         <h5 class="text-xl font-semibold mb-2 text-center">{{ $dish->name }}</h5>
@@ -29,8 +28,14 @@
             </form>
             <form action="{{ route('tabletOrder.favorite', ['dish' => $dish->id]) }}" method="POST">
                 @csrf
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500">
-                    Favoriet
+                @php
+                    $favorites = session()->get('favorites', []);
+                    $inFavorites = in_array($dish->id, $favorites);
+                    $textColorClass = $inFavorites ? 'text-yellow-400' : 'text-white';
+                @endphp
+                
+                <button type="submit" class="bg-red-500 hover:bg-red-600 font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 {{ $textColorClass }}">
+                    Favorieten
                 </button>
             </form>
         </div>
