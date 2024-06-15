@@ -91,6 +91,19 @@ class TabletOrderController extends Controller
     {
         $reservation = session('current_reservation');
 
+        $latestOrderLine = OrderLine::join('orders', 'order_lines.order_id', '=', 'orders.id')
+            ->where('orders.reservation_id', $reservation->id)
+            ->orderBy('orders.order_time', 'desc')
+            ->orderBy('order_lines.created_at', 'desc')
+            ->first();
+
+        $roundNumber = $latestOrderLine ? $latestOrderLine->round_number + 1 : 1;
+
+        if ($roundNumber > 5) {
+            return redirect()->route('tablet.index')
+                ->with('error', 'Je kunt maximaal 5 rondes plaatsen. Neem contact op met het personeel voor meer informatie.');
+        }
+
         $orderCheck = $this->tabletOrderService->canPlaceOrder($reservation);
 
         if (! $orderCheck['canPlace']) {
@@ -104,19 +117,6 @@ class TabletOrderController extends Controller
             'order_time' => Carbon::now(),
             'reservation_id' => $reservation->id,
         ]);
-
-        $latestOrderLine = OrderLine::join('orders', 'order_lines.order_id', '=', 'orders.id')
-            ->where('orders.reservation_id', $reservation->id)
-            ->orderBy('orders.order_time', 'desc')
-            ->orderBy('order_lines.created_at', 'desc')
-            ->first();
-
-        $roundNumber = $latestOrderLine ? $latestOrderLine->round_number + 1 : 1;
-
-        if ($roundNumber > 5) {
-            return redirect()->route('tablet.index')
-                ->with('error', 'Je kunt maximaal 5 rondes plaatsen. Neem contact op met het personeel voor meer informatie.');
-        }
 
         $orderLines = [];
         foreach ($orders as $order) {
