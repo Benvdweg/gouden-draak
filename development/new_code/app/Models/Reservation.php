@@ -19,4 +19,9 @@ class Reservation extends Model
         'endtime',
         'table_number',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

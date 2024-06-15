@@ -105,13 +105,19 @@ class TabletOrderController extends Controller
             'reservation_id' => $reservation->id,
         ]);
 
+        $roundNumber = OrderLine::whereHas('order', function ($query) use ($reservation) {
+            $query->where('reservation_id', $reservation->id)
+                ->orderBy('order_time', 'desc');
+        })->value('round_number');
+
+        $roundNumber = $roundNumber ? $roundNumber + 1 : 1;
+
         $orderLines = [];
         foreach ($orders as $order) {
             $orderLines[] = [
                 'order_id' => $newOrder->id,
                 'dish_id' => $order['id'],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'round_number' => $roundNumber,
             ];
         }
 
