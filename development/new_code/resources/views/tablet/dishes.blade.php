@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <div class="justify-start flex">
-            <a href="{{route('tablet.index')}}"
+            <a href="{{route('tablet.index', ['tablenumber' => $tablenumber])}}"
                class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full w-24 justify-center mb-4">
                 Terug
             </a>
@@ -17,9 +17,12 @@
                 <div class="flex items-center justify-center mb-4">
                     <span class="text-xl font-semibold text-gray-900">$ {{ $dish->price }}</span>
                 </div>
-                <form action="{{ route('order.add', ['dish' => $dish->id]) }}" method="POST">
+                <form action="{{ route('order.add', ['dish' => $dish->id, 'tablenumber' => $tablenumber]) }}"
+                      method="POST">
                     @csrf
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="hidden" name="tablenumber" value="{{$tablenumber}}">
+                    <button type="submit"
+                            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                         Toevoegen
                     </button>
                 </form>

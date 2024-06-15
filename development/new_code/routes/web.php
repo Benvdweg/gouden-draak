@@ -30,11 +30,15 @@ Route::put('/dishes/{dish}', [AdminController::class, 'update'])->name('admin.di
 
 Route::get('/contact', [CustomerController::class, 'index'])->name('customer.contact');
 
-Route::get('/tablet/bestellen', [DashboardController::class, 'showTabletDashboard'])->name('tablet.index');
-Route::get('/tablet/bestellen/{dishtype}', [DashboardController::class, 'showTabletDishes'])->name('tablet.category');
-Route::post('/tablet/bestellen/toevoegen/{dish}', [OrderController::class, 'addToOrder'])->name('order.add');
-Route::get('/tablet/bestellingen', [OrderController::class, 'showOrders'])->name('orders.index');
-Route::post('/tablet/bestellingen', [OrderController::class, 'processOrders'])->name('orders.process');
+Route::get('/tablet', [DashboardController::class, 'showTabletDashboard'])->name('tablet.dashboard');
+Route::post('/tablet', [DashboardController::class, 'setTableNumber'])->name('tablet.number.set');
+
+Route::get('/tablet/{tablenumber}/bestellen', [DashboardController::class, 'showTabletIndex'])->name('tablet.index');
+Route::get('/tablet/{tablenumber}/bestellen/{dishtype}', [DashboardController::class, 'showTabletDishes'])->name('tablet.category');
+Route::post('/tablet/{tablenumber}/bestellen/toevoegen/{dish}', [OrderController::class, 'addToOrder'])->name('order.add');
+
+Route::get('/tablet/{tablenumber}/bestellingen', [OrderController::class, 'showOrders'])->name('orders.index');
+Route::post('/tablet/{tablenumber}/bestellingen', [OrderController::class, 'processOrders'])->name('orders.process');
 
 Route::fallback(function () {
     return view('index');

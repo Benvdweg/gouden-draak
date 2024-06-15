@@ -10,14 +10,14 @@ use App\Models\Dish;
 
 class OrderController extends Controller
 {
-    public function showOrders(Request $request)
+    public function showOrders(Request $request, $tablenumber)
     {
         $orders = $request->session()->get('orders', []);
 
-        return view('tablet.orders', compact('orders'));
+        return view('tablet.orders', compact('orders', 'tablenumber'));
     }
 
-    public function addToOrder(Request $request, Dish $dish)
+    public function addToOrder(Request $request, $tablenumber, Dish $dish)
     {
         $order = $request->session()->get('orders', []);
 
@@ -29,16 +29,17 @@ class OrderController extends Controller
 
         $request->session()->put('orders', $order);
 
-        return redirect()->route('orders.index')->with('success', 'Gerecht toegevoegd aan bestelling.');
+        return redirect()->route('orders.index', ['tablenumber' => $tablenumber])->with('success', 'Gerecht toegevoegd aan bestelling.');
     }
 
-    public function processOrders(Request $request)
+    public function processOrders(Request $request, $tablenumber)
     {
         $orders = $request->session()->get('orders', []);
 
         $newOrder = Order::create([
-            'table_number' => 1,
+            'table_number' => $tablenumber,
             'order_time' => Carbon::now(),
+
         ]);
 
         foreach ($orders as $order) {
@@ -50,6 +51,6 @@ class OrderController extends Controller
 
         $request->session()->forget('orders');
 
-        return redirect()->route('tablet.index')->with('success', 'De bestelling is onderweg.');
+        return redirect()->route('tablet.index', ['tablenumber' => $tablenumber])->with('success', 'De bestelling is onderweg.');
     }
 }

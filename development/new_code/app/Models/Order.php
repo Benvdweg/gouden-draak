@@ -17,6 +17,7 @@ class Order extends Model
         'round_number',
         'comment',
         'reservation_id',
-        'order_time'
+        'order_time',
+        'table_number'
     ];
 }
