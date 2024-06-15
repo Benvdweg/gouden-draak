@@ -15,20 +15,6 @@ class TabletOrderController extends Controller
     public function showTabletIndex()
     {
         $categories = DishType::orderBy('type')->get();
-        $email = session('email');
-        $currentTime = Carbon::now(config('app.timezone'));
-
-        if ($email) {
-            $reservation = Reservation::where('email', $email)
-                ->whereNotNull('table_number')
-                ->where('starttime', '<=', $currentTime)
-                ->where('endtime', '>=', $currentTime)
-                ->first();
-
-            if ($reservation) {
-                session(['current_reservation' => $reservation]);
-            }
-        }
 
         $reservation = session('current_reservation');
 
@@ -53,10 +39,28 @@ class TabletOrderController extends Controller
         $request->validate(['email' => 'required']);
 
         $request->session()->forget('email');
+        $request->session()->forget('current_reservation');
+
         $request->session()->flash('email', $request->email);
+
+        $email = $request->email;
+        $currentTime = Carbon::now(config('app.timezone'));
+
+        $reservation = Reservation::where('email', $email)
+            ->whereNotNull('table_number')
+            ->where('starttime', '<=', $currentTime)
+            ->where('endtime', '>=', $currentTime)
+            ->first();
+
+        if ($reservation) {
+            $request->session()->put('current_reservation', $reservation);
+        } else {
+            return redirect()->back()->with('error', 'Geen geldige reservering gevonden.');
+        }
 
         return redirect()->route('tablet.index');
     }
+
 
     public function showOrders(Request $request)
     {

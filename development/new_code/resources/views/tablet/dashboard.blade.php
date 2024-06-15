@@ -1,6 +1,7 @@
 @extends('layout.tablet-layout')
 
 @section('content')
+    @include('shared.error-message')
     <div class="container mx-auto px-4">
         <div class="flex justify-center items-center h-screen">
             <div class="w-full max-w-xs">
