@@ -18,8 +18,8 @@ class ReservationsSeeder extends Seeder
         DB::table('reservations')->insert([
             [
                 'email' => 'john.doe@example.com',
-                'starttime' => '2024-06-15 18:00:00',
-                'endtime' => '2024-06-15 20:00:00',
+                'starttime' => Carbon::now()->subMinutes(5),
+                'endtime' => Carbon::now()->addHour(),
                 'table_number' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
