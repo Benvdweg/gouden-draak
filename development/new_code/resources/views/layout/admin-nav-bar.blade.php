@@ -9,5 +9,8 @@
         <a href="{{ route('admin.news.index') }}" class="flex items-center px-4 py-2 rounded-md {{ request()->routeIs('admin.news.index') ? 'text-gray-700 bg-gray-100' : 'hover:bg-gray-700 hover:text-gray-100' }}">
             <span>Nieuws berichten</span>
         </a>
+        <a href="{{ route('reservations.index') }}" class="flex items-center px-4 py-2 rounded-md {{ request()->routeIs('reservations.index') ? 'text-gray-700 bg-gray-100' : 'hover:bg-gray-700 hover:text-gray-100' }}">
+            <span>Tafels & Reserveringen</span>
+        </a>
     </nav>
 </div>

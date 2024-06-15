@@ -19,7 +19,6 @@ class Order extends Model
         'comment',
         'reservation_id',
         'order_time',
-        'table_number',
     ];
 
     protected $casts = [

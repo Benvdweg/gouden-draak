@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('email');
             $table->datetime('starttime');
             $table->datetime('endtime');
+            $table->integer('table_number')->nullable();
             $table->timestamps();
 
             $table->primary(['id']);

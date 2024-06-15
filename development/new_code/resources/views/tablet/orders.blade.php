@@ -3,13 +3,13 @@
 @section('content')
     <div>
         <div class="justify-between flex">
-            <a href="{{ route('tablet.index', ['tablenumber' => $tablenumber]) }}"
+            <a href="{{ route('tablet.index')}}"
                class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full w-48 justify-center mb-4">
                 Naar Gerechten
             </a>
 
             <div>
-                <span class="font-bold text-xl">Tafelnummer {{$tablenumber}}</span>
+                <span class="font-bold text-xl">Tafelnummer</span>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
         </div>
 
         @if(!empty($orders))
-            <form method="POST" action="{{ route('orders.process', ['tablenumber' => $tablenumber]) }}">
+            <form method="POST" action="{{ route('orders.process') }}">
                 @csrf
                 <button type="submit"
                         class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">

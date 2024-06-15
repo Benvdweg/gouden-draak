@@ -6,23 +6,41 @@ use App\Models\Dish;
 use App\Models\DishType;
 use App\Models\Order;
 use App\Models\OrderLine;
+use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TabletOrderController extends Controller
 {
-    public function showTabletIndex($tablenumber)
+    public function showTabletIndex()
     {
         $categories = DishType::orderBy('type')->get();
+        $email = session('email');
+        $currentTime = Carbon::now(config('app.timezone'));
 
-        return view('tablet.index', compact('categories', 'tablenumber'));
+        if ($email) {
+            $reservation = Reservation::where('email', $email)
+                ->whereNotNull('table_number')
+                ->where('starttime', '<=', $currentTime)
+                ->where('endtime', '>=', $currentTime)
+                ->first();
+
+            if ($reservation) {
+                session(['current_reservation' => $reservation]);
+            }
+        }
+
+        $reservation = session('current_reservation');
+
+        return view('tablet.index', compact('categories', 'reservation'));
     }
 
-    public function showTabletDishes($tablenumber, $dishType)
+    public function showTabletDishes($dishType)
     {
+        $reservation = session('current_reservation');
         $dishes = Dish::where('type_id', $dishType)->get();
 
-        return view('tablet.dishes', compact('dishType', 'dishes', 'tablenumber'));
+        return view('tablet.dishes', compact('dishType', 'dishes', 'reservation'));
     }
 
     public function showTabletDashboard()
@@ -30,21 +48,25 @@ class TabletOrderController extends Controller
         return view('tablet.dashboard');
     }
 
-    public function setTableNumber(Request $request)
+    public function loginTable(Request $request)
     {
-        $request->validate(['tablenumber' => 'required']);
+        $request->validate(['email' => 'required']);
 
-        return redirect()->route('tablet.index', ['tablenumber' => $request->tablenumber]);
+        $request->session()->forget('email');
+        $request->session()->flash('email', $request->email);
+
+        return redirect()->route('tablet.index');
     }
 
-    public function showOrders(Request $request, $tablenumber)
+    public function showOrders(Request $request)
     {
+        $reservation = session('current_reservation');
         $orders = $request->session()->get('orders', []);
 
-        return view('tablet.orders', compact('orders', 'tablenumber'));
+        return view('tablet.orders', compact('orders', 'reservation'));
     }
 
-    public function addToOrder(Request $request, $tablenumber, Dish $dish)
+    public function addToOrder(Request $request, Dish $dish)
     {
         $order = $request->session()->get('orders', []);
 
@@ -56,13 +78,16 @@ class TabletOrderController extends Controller
 
         $request->session()->put('orders', $order);
 
-        return redirect()->route('orders.index', ['tablenumber' => $tablenumber])->with('success', 'Gerecht toegevoegd aan bestelling.');
+        return redirect()->route('orders.index')->with('success', 'Gerecht toegevoegd aan bestelling.');
     }
 
-    public function processOrders(Request $request, $tablenumber)
+    public function processOrders(Request $request)
     {
-        $lastOrder = Order::where('table_number', $tablenumber)
-            ->orderBy('order_time', 'desc')
+        $reservation = session('current_reservation');
+
+        $lastOrder = Order::join('reservations', 'orders.reservation_id', '=', 'reservations.id')
+            ->where('reservations.table_number', $reservation->table_number)
+            ->orderBy('orders.order_time', 'desc')
             ->first();
 
         if ($lastOrder && $lastOrder->order_time) {
@@ -78,16 +103,16 @@ class TabletOrderController extends Controller
 
                 $waitMessage = '';
                 if ($minutes > 0) {
-                    $waitMessage .= $minutes.' '.($minutes == 1 ? 'minuut' : 'minuten');
+                    $waitMessage .= $minutes . ' ' . ($minutes == 1 ? 'minuut' : 'minuten');
                     if ($seconds > 0) {
                         $waitMessage .= ' en ';
                     }
                 }
                 if ($seconds > 0 || $minutes == 0) {
-                    $waitMessage .= $seconds.' '.($seconds == 1 ? 'seconde' : 'seconden');
+                    $waitMessage .= $seconds . ' ' . ($seconds == 1 ? 'seconde' : 'seconden');
                 }
 
-                return redirect()->route('tablet.index', ['tablenumber' => $tablenumber])
+                return redirect()->route('tablet.index')
                     ->with('error', "Je moet nog $waitMessage wachten voordat je een nieuwe bestelling kunt plaatsen.");
             }
         }
@@ -95,9 +120,8 @@ class TabletOrderController extends Controller
         $orders = $request->session()->get('orders', []);
 
         $newOrder = Order::create([
-            'table_number' => $tablenumber,
             'order_time' => Carbon::now(),
-
+            'reservation_id' => $reservation->id,
         ]);
 
         foreach ($orders as $order) {
@@ -109,6 +133,6 @@ class TabletOrderController extends Controller
 
         $request->session()->forget('orders');
 
-        return redirect()->route('tablet.index', ['tablenumber' => $tablenumber])->with('success', 'De bestelling is onderweg.');
+        return redirect()->route('tablet.index')->with('success', 'De bestelling is onderweg.');
     }
 }
