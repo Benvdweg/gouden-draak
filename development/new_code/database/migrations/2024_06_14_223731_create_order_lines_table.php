@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('dish_id')->index('dish_id');
             $table->integer('round_number')->nullable();
             $table->text('comment')->nullable();
-
+            $table->timestamps();
             $table->primary(['id']);
         });
     }

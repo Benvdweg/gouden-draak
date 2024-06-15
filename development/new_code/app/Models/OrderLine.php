@@ -10,8 +10,6 @@ class OrderLine extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         'order_id',
         'dish_id',

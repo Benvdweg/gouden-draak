@@ -105,12 +105,18 @@ class TabletOrderController extends Controller
             'reservation_id' => $reservation->id,
         ]);
 
-        $roundNumber = OrderLine::whereHas('order', function ($query) use ($reservation) {
-            $query->where('reservation_id', $reservation->id)
-                ->orderBy('order_time', 'desc');
-        })->value('round_number');
+        $latestOrderLine = OrderLine::join('orders', 'order_lines.order_id', '=', 'orders.id')
+            ->where('orders.reservation_id', $reservation->id)
+            ->orderBy('orders.order_time', 'desc')
+            ->orderBy('order_lines.created_at', 'desc')
+            ->first();
 
-        $roundNumber = $roundNumber ? $roundNumber + 1 : 1;
+        $roundNumber = $latestOrderLine ? $latestOrderLine->round_number + 1 : 1;
+
+        if ($roundNumber > 5) {
+            return redirect()->route('tablet.index')
+                ->with('error', 'Je kunt maximaal 5 rondes plaatsen. Neem contact op met het personeel voor meer informatie.');
+        }
 
         $orderLines = [];
         foreach ($orders as $order) {
