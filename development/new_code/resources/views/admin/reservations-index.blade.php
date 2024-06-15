@@ -23,6 +23,10 @@
                             @csrf
                             <label for="table_number" class="block font-semibold">Table Number:</label>
                             <input type="text" id="table_number" name="table_number" class="form-input mt-1 block w-full" placeholder="Enter table number" value="{{$reservation->table_number}}">
+                            @error('table_number')
+                            <span class="text-red-500 mt-2">{{ $message }}</span>
+                            @enderror
+                            <br>
                             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 mt-2 rounded-md">Assign Table</button>
                         </form>
                     </div>

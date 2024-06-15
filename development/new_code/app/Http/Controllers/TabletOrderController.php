@@ -7,11 +7,16 @@ use App\Models\DishType;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Reservation;
+use App\Services\TabletOrderService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TabletOrderController extends Controller
 {
+    public function __construct(private readonly TabletOrderService $tabletOrderService)
+    {
+    }
+
     public function showTabletIndex()
     {
         $categories = DishType::orderBy('type')->get();
@@ -88,36 +93,11 @@ class TabletOrderController extends Controller
     {
         $reservation = session('current_reservation');
 
-        $lastOrder = Order::join('reservations', 'orders.reservation_id', '=', 'reservations.id')
-            ->where('reservations.table_number', $reservation->table_number)
-            ->orderBy('orders.order_time', 'desc')
-            ->first();
+        $orderCheck = $this->tabletOrderService->canPlaceOrder($reservation);
 
-        if ($lastOrder && $lastOrder->order_time) {
-            $now = Carbon::now();
-            $orderTime = Carbon::parse($lastOrder->order_time);
-            $waitEndTime = $orderTime->copy()->addMinutes(10);
-
-            if ($now->lt($waitEndTime)) {
-                $secondsToWait = $now->diffInSeconds($waitEndTime);
-
-                $minutes = floor($secondsToWait / 60);
-                $seconds = $secondsToWait % 60;
-
-                $waitMessage = '';
-                if ($minutes > 0) {
-                    $waitMessage .= $minutes.' '.($minutes == 1 ? 'minuut' : 'minuten');
-                    if ($seconds > 0) {
-                        $waitMessage .= ' en ';
-                    }
-                }
-                if ($seconds > 0 || $minutes == 0) {
-                    $waitMessage .= $seconds.' '.($seconds == 1 ? 'seconde' : 'seconden');
-                }
-
-                return redirect()->route('tablet.index')
-                    ->with('error', "Je moet nog $waitMessage wachten voordat je een nieuwe bestelling kunt plaatsen.");
-            }
+        if (!$orderCheck['canPlace']) {
+            return redirect()->route('tablet.index')
+                ->with('error', "Je moet nog {$orderCheck['waitMessage']} wachten voordat je een nieuwe bestelling kunt plaatsen.");
         }
 
         $orders = $request->session()->get('orders', []);
