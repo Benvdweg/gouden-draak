@@ -2,14 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dish;
+use App\Models\DishType;
 use App\Models\Order;
 use App\Models\OrderLine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\Dish;
 
-class OrderController extends Controller
+class TabletOrderController extends Controller
 {
+    public function showTabletIndex($tablenumber)
+    {
+        $categories = DishType::orderBy('type')->get();
+
+        return view('tablet.index', compact('categories', 'tablenumber'));
+    }
+
+    public function showTabletDishes($tablenumber, $dishType)
+    {
+        $dishes = Dish::where('type_id', $dishType)->get();
+
+        return view('tablet.dishes', compact('dishType', 'dishes', 'tablenumber'));
+    }
+
+    public function showTabletDashboard()
+    {
+        return view('tablet.dashboard');
+    }
+
+    public function setTableNumber(Request $request)
+    {
+        $request->validate(['tablenumber' => 'required']);
+
+        return redirect()->route('tablet.index', ['tablenumber' => $request->tablenumber]);
+    }
+
     public function showOrders(Request $request, $tablenumber)
     {
         $orders = $request->session()->get('orders', []);
