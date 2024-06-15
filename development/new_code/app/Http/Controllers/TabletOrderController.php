@@ -61,6 +61,37 @@ class TabletOrderController extends Controller
 
     public function processOrders(Request $request, $tablenumber)
     {
+        $lastOrder = Order::where('table_number', $tablenumber)
+            ->orderBy('order_time', 'desc')
+            ->first();
+
+        if ($lastOrder && $lastOrder->order_time) {
+            $now = Carbon::now();
+            $orderTime = Carbon::parse($lastOrder->order_time);
+            $waitEndTime = $orderTime->copy()->addMinutes(10);
+
+            if ($now->lt($waitEndTime)) {
+                $secondsToWait = $now->diffInSeconds($waitEndTime);
+
+                $minutes = floor($secondsToWait / 60);
+                $seconds = $secondsToWait % 60;
+
+                $waitMessage = '';
+                if ($minutes > 0) {
+                    $waitMessage .= $minutes . ' ' . ($minutes == 1 ? 'minuut' : 'minuten');
+                    if ($seconds > 0) {
+                        $waitMessage .= ' en ';
+                    }
+                }
+                if ($seconds > 0 || $minutes == 0) {
+                    $waitMessage .= $seconds . ' ' . ($seconds == 1 ? 'seconde' : 'seconden');
+                }
+
+                return redirect()->route('tablet.index', ['tablenumber' => $tablenumber])
+                    ->with('error', "Je moet nog $waitMessage wachten voordat je een nieuwe bestelling kunt plaatsen.");
+            }
+        }
+
         $orders = $request->session()->get('orders', []);
 
         $newOrder = Order::create([

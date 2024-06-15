@@ -2,11 +2,15 @@
 
 @section('content')
     <div>
-        <div class="justify-start flex">
+        <div class="justify-between flex">
             <a href="{{ route('tablet.index', ['tablenumber' => $tablenumber]) }}"
                class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full w-48 justify-center mb-4">
                 Naar Gerechten
             </a>
+
+            <div>
+                <span class="font-bold text-xl">Tafelnummer {{$tablenumber}}</span>
+            </div>
         </div>
     </div>
     <div class="container mx-auto px-4">
@@ -20,7 +24,9 @@
                     </ul>
                 </div>
             @empty
-                <p>Nog geen gerechten.</p>
+                <div class="flex w-full justify-centerst">
+                    <p class="text-center">Nog geen gerechten.</p>
+                </div>
             @endforelse
         </div>
 
