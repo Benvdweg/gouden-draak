@@ -55,7 +55,7 @@ class TabletOrderController extends Controller
             ->where('endtime', '>=', $currentTime)
             ->first();
 
-        if (!$reservation) {
+        if (! $reservation) {
             return redirect()->back()->with('error', 'Geen geldige reservering gevonden.');
         }
 
@@ -93,7 +93,7 @@ class TabletOrderController extends Controller
 
         $orderCheck = $this->tabletOrderService->canPlaceOrder($reservation);
 
-        if (!$orderCheck['canPlace']) {
+        if (! $orderCheck['canPlace']) {
             return redirect()->route('tablet.index')
                 ->with('error', "Je moet nog {$orderCheck['waitMessage']} wachten voordat je een nieuwe bestelling kunt plaatsen.");
         }

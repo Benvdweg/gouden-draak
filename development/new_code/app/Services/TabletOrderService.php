@@ -43,13 +43,13 @@ class TabletOrderService
 
         $waitMessage = '';
         if ($minutes > 0) {
-            $waitMessage .= $minutes . ' ' . ($minutes == 1 ? 'minuut' : 'minuten');
+            $waitMessage .= $minutes.' '.($minutes == 1 ? 'minuut' : 'minuten');
             if ($seconds > 0) {
                 $waitMessage .= ' en ';
             }
         }
         if ($seconds > 0 || $minutes == 0) {
-            $waitMessage .= $seconds . ' ' . ($seconds == 1 ? 'seconde' : 'seconden');
+            $waitMessage .= $seconds.' '.($seconds == 1 ? 'seconde' : 'seconden');
         }
 
         return $waitMessage;
