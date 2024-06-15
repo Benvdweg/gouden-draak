@@ -23,7 +23,7 @@ class DashboardController extends Controller
         return view('tablet.index', compact('categories', 'tablenumber'));
     }
 
-    public function showTabletDishes($dishType, $tablenumber)
+    public function showTabletDishes($tablenumber, $dishType)
     {
         $dishes = Dish::where('type_id', $dishType)->get();
 
