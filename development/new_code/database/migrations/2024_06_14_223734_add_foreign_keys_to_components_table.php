@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('components', function (Blueprint $table) {
-            $table->foreign(['page_id'], 'components_ibfk_1')->references(['id'])->on('pages')->onUpdate('no action')->onDelete('no action');
+            $table->foreign(['page_id'], 'components_ibfk_1')->references(['id'])->on('pages')->onUpdate('no action')->onDelete('cascade');
         });
     }
 

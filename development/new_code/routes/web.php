@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TabletOrderController;
 use App\Http\Controllers\WaiterCallController;
@@ -20,7 +22,7 @@ Route::get('/orders/{orderLine}/comment', [CheckoutController::class, 'showComme
 Route::put('/orders/{orderId}/update-comment', [CheckOutController::class, 'updateComment'])
     ->name('orders.updateComment');
 
-Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+//Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
 Route::get('/admin', [DishController::class, 'index'])->name('admin.dishes');
 
@@ -66,6 +68,15 @@ Route::post('/tablet/bestellingen', [TabletOrderController::class, 'processOrder
 Route::get('/tablet/ober', [TabletOrderController::class, 'showCallWaiter'])->name('tablet.call.waiter');
 Route::post('/tablet/ober/call', [WaiterCallController::class, 'store'])->name('tablet.store.call');
 
-Route::fallback(function () {
-    return view('customer.index');
-});
+Route::get('/admin/cms', [PageController::class, 'index'])->name('cms.index');
+Route::post('/admin/cms/pagina-maken', [PageController::class, 'store'])->name('cms.store.page');
+Route::delete('/admin/cms/verwijderen', [PageController::class, 'destroy'])->name('cms.destroy.page');
+Route::get('/admin/cms/{page}', [PageController::class, 'show'])->name('cms.show.page');
+
+Route::get('/{page:slug}', [CustomerController::class, 'showCustomPage'])->name('customer.page-custom-show');
+
+Route::post('/admin/cms/{page}/component-toevoegen', [ComponentController::class, 'store'])->name('component.store');
+Route::delete('/admin/cms/{page}/component-verwijderen', [ComponentController::class, 'destroy'])->name('component.destroy');
+Route::post('/admin/cms/{page}/component-bewerken', [ComponentController::class, 'edit'])->name('component.edit.text');
+Route::post('/admin/cms/{page}/component-tekst-opslaan', [ComponentController::class, 'updateTextComponent'])->name('component.save.text');
+Route::post('/admin/cms/{page}/{component}/verander-volgorde', [ComponentController::class, 'updateComponentOrder'])->name('component.change.order');
