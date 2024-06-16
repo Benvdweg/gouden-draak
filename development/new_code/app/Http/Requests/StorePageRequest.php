@@ -16,7 +16,7 @@ class StorePageRequest extends FormRequest
                 'max:255',
                 'unique:pages,slug',
                 'regex:/^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$/u',
-                function($attribute, $value, $fail) {
+                function ($attribute, $value, $fail) {
                     $reservedSlugs = ['nieuws', 'contact', 'menu'];
                     if (in_array($value, $reservedSlugs)) {
                         $fail('Het URL veld mag niet een van de gereserveerde woorden zijn: nieuws, contact, menu.');

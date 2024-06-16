@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderLine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PickUpController extends Controller
 {
@@ -24,7 +25,6 @@ class PickUpController extends Controller
 
         return view('customer.pick-up-menu-dishes', compact('dishes'));
     }
-
 
     public function addToOrder(Request $request, Dish $dish)
     {
@@ -60,15 +60,26 @@ class PickUpController extends Controller
         ]);
 
         $orderLines = [];
+        $qrCodeData = 'Bestelnummer: '.$newOrder->id."\n\n";
+
         foreach ($orders as $order) {
             $orderLines[] = [
                 'order_id' => $newOrder->id,
                 'dish_id' => $order['id'],
             ];
+
+            $dish = Dish::find($order['id']);
+            $qrCodeData .= 'Gerechtnummer: '.$dish->id."\n";
+            $qrCodeData .= 'Gerecht: '.$dish->name."\n\n";
         }
 
         OrderLine::insert($orderLines);
 
-        return redirect()->route('customer.news')->with('success', 'De bestelling is onderweg.');
+        $qrCode = QrCode::size(300)->generate($qrCodeData);
+
+        return view('customer.pick-up-confirmation', [
+            'qrCode' => $qrCode,
+            'orderId' => $newOrder->id,
+        ]);
     }
 }
