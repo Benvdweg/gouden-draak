@@ -16,6 +16,12 @@ class StorePageRequest extends FormRequest
                 'max:255',
                 'unique:pages,slug',
                 'regex:/^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$/u',
+                function($attribute, $value, $fail) {
+                    $reservedSlugs = ['nieuws', 'contact', 'menu'];
+                    if (in_array($value, $reservedSlugs)) {
+                        $fail('Het URL veld mag niet een van de gereserveerde woorden zijn: nieuws, contact, menu.');
+                    }
+                },
             ],
         ];
     }
@@ -32,6 +38,7 @@ class StorePageRequest extends FormRequest
             'slug.max' => 'Het url veld mag niet meer dan :max karakters bevatten.',
             'slug.unique' => 'Deze url is al in gebruik, kies een andere.',
             'slug.regex' => 'Het URL veld mag alleen alfanumerieke karakters bevatten en mag niet beginnen of eindigen met een streepje (-) of underscore (_).',
+            'slug.reserved' => 'Het URL veld mag niet een van de gereserveerde woorden zijn: nieuws, contact, menu.', // This is for the custom validation message
         ];
     }
 }
