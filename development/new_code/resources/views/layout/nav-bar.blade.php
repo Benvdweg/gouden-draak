@@ -6,7 +6,7 @@
         <div class="mt-8 flex justify-center border border-black p-0.5 space-x-1">
             <a href="#"
                class="text-xl py-1 text-white bg-blue-500 hover:bg-blue-600 flex-1 text-center font-bold border border-black">Menukaart</a>
-            <a href="{{route('news.show')}}"
+            <a href="{{route('customer.news')}}"
                class="text-xl py-1 text-white bg-blue-500 hover:bg-blue-600 flex-1 text-center font-bold border border-black">Nieuws</a>
             <a href="{{ route('customer.contact') }}"
                class="text-xl py-1 text-white bg-blue-500 hover:bg-blue-600 flex-1 text-center font-bold border border-black">
