@@ -18,6 +18,11 @@ class Dish extends Model
 
     protected $fillable = ['id', 'name', 'price', 'description', 'type_id', 'menu_number', 'addition_id'];
 
+    public function scopeWithMenuOrAddition($query)
+    {
+        return $query->whereNotNull('menu_number')->orWhereNotNull('addition_id');
+    }
+
     public function type()
     {
         return $this->belongsTo(DishType::class, 'type_id');

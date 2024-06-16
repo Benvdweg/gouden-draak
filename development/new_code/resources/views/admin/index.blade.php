@@ -2,18 +2,15 @@
 
 @section('content')
     <div class="container mx-auto mt-4">
+        @include('shared.success-message')
         <h1 class="text-3xl font-bold mb-6 text-center">Menu kaart beheren</h1>
-        @if(session('success'))
-            <div class="bg-green-500 text-white p-4 rounded mb-6">
-                {{ session('success') }}
-            </div>
-        @endif
         <div class="bg-white p-6 rounded shadow-md mb-6">
-        <div class="mb-6 flex justify-end">
-            <a href="{{ route('admin.dishes.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Gerecht Toevoegen
-            </a>
-        </div>
+            <div class="mb-6 flex justify-end">
+                <a href="{{ route('admin.dishes.create') }}"
+                   class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Gerecht Toevoegen
+                </a>
+            </div>
             <table class="w-full border-collapse">
                 <thead>
                 <tr>
@@ -27,28 +24,30 @@
                 <tbody>
                 @foreach($dishes as $dish)
                     <tr>
-                        <td class="border-b py-2">{{ $dish->name }}</td>
+                        <td class="border-b py-2">{!! $dish->name !!}</td>
                         <td class="border-b py-2">{{ $dish->price }}</td>
                         <td class="border-b py-2 whitespace-nowrap overflow-hidden overflow-ellipsis max-w-xs">{{ $dish->description }}</td>
                         <td class="border-b py-2">
                             @if ($dish->menu_number)
-                            {{ $dish->menu_number }}
+                                {{ $dish->menu_number }}
                             @endif
                             @if ($dish->addition)
-                            {{ $dish->addition->letter }}
+                                {{ $dish->addition->letter }}
                             @endif
                         </td>
                         <td class="border-b py-2">
-                            <form action="{{ route('admin.dishes.destroy', $dish->id) }}" method="POST" class="inline-block">
+                            <form action="{{ route('admin.dishes.destroy', $dish->id) }}" method="POST"
+                                  class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
-                                    Verwijder
+                                    Verwijderen
                                 </button>
                             </form>
-                            <a href="{{ route('admin.dishes.edit', $dish->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded ml-2 hover:bg-blue-700">
-                Update
-            </a>
+                            <a href="{{ route('admin.dishes.edit', $dish->id) }}"
+                               class="bg-blue-500 text-white px-4 py-2 rounded ml-2 hover:bg-blue-700">
+                                Bewerken
+                            </a>
                         </td>
                     </tr>
                 @endforeach
