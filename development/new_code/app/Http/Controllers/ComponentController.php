@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DestroyComponentRequest;
 use App\Http\Requests\StoreComponentRequest;
+use App\Http\Requests\UpdateTextComponentRequest;
 use App\Models\Component;
 use App\Models\Page;
 use App\Services\ComponentMovementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mews\Purifier\Facades\Purifier;
 
 class ComponentController extends Controller
 {
@@ -58,5 +60,20 @@ class ComponentController extends Controller
         ]);
 
         return redirect()->route('cms.show.page', ['page' => $page])->with('editing', $validated['componentId']);
+    }
+
+    public function updateTextComponent(UpdateTextComponentRequest $request, Page $page)
+    {
+        $validated = $request->validated();
+
+        $content = Purifier::clean($validated['content']);
+
+        $component = Component::find($validated['componentId']);
+
+        $component->update([
+            'content' => $content,
+        ]);
+
+        return redirect()->route('cms.show.page', ['page' => $page])->with('success', 'Component is geupdate!');
     }
 }

@@ -76,3 +76,4 @@ Route::get('/admin/cms/{page}', [PageController::class, 'show'])->name('cms.show
 Route::post('/admin/cms/{page}/component-toevoegen', [ComponentController::class, 'store'])->name('component.store');
 Route::delete('/admin/cms/{page}/component-verwijderen', [ComponentController::class, 'destroy'])->name('component.destroy');
 Route::post('/admin/cms/{page}/component-bewerken', [ComponentController::class, 'edit'])->name('component.edit.text');
+Route::post('/admin/cms/{page}/component-tekst-opslaan', [ComponentController::class, 'updateTextComponent'])->name('component.save.text');
