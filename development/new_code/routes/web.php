@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DishController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TabletOrderController;
+use App\Http\Controllers\WaiterCallController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,16 +22,17 @@ Route::put('/orders/{orderId}/update-comment', [CheckOutController::class, 'upda
 
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.dishes');
+Route::get('/admin', [DishController::class, 'index'])->name('admin.dishes');
 
 Route::get('/admin/nieuws-berichten', [NewsController::class, 'show'])->name('admin.news.index');
 Route::post('/admin/nieuws-berichten', [NewsController::class, 'store'])->name('admin.news.store');
 
-Route::delete('/dishes/{dish}', [AdminController::class, 'destroy'])->name('admin.dishes.destroy');
-Route::get('/admin/dishes/create', [AdminController::class, 'create'])->name('admin.dishes.create');
-Route::post('/admin/dishes', [AdminController::class, 'store'])->name('admin.dishes.store');
-Route::get('/dishes/{dish}/edit', [AdminController::class, 'edit'])->name('admin.dishes.edit');
-Route::put('/dishes/{dish}', [AdminController::class, 'update'])->name('admin.dishes.update');
+Route::delete('/dishes/{dish}', [DishController::class, 'destroy'])->name('admin.dishes.destroy');
+Route::get('/admin/dishes/create', [DishController::class, 'create'])->name('admin.dishes.create');
+Route::post('/admin/dishes', [DishController::class, 'store'])->name('admin.dishes.store');
+Route::get('/dishes/{dish}/edit', [DishController::class, 'edit'])->name('admin.dishes.edit');
+Route::put('/dishes/{dish}', [DishController::class, 'update'])->name('admin.dishes.update');
+Route::put('/waiter-calls', [DishController::class, 'update'])->name('admin.dishes.update');
 
 Route::get('/contact', [CustomerController::class, 'showContact'])->name('customer.contact');
 Route::get('/nieuws', [CustomerController::class, 'showNews'])->name('customer.news');
@@ -38,6 +40,8 @@ Route::get('/nieuws', [CustomerController::class, 'showNews'])->name('customer.n
 Route::get('/admin/reserveringen', [ReservationController::class, 'index'])->name('reservations.index');
 Route::post('/reservations/{reservation}/assign-table', [ReservationController::class, 'assignTable'])
     ->name('reservations.assignTable');
+
+Route::get('/admin/waiter-calls', [WaiterCallController::class, 'index'])->name('waiter.calls');
 
 Route::get('/tablet', [TabletOrderController::class, 'showTabletDashboard'])->name('tablet.dashboard');
 Route::post('/tablet', [TabletOrderController::class, 'loginTable'])->name('tablet.number.set');
@@ -58,6 +62,9 @@ Route::get('/order/{round_number}', [TabletOrderController::class, 'showPrevOrde
 Route::get('/tablet/bestellingen', [TabletOrderController::class, 'showOrders'])->name('orders.index');
 Route::post('/tablet/bestellingen', [TabletOrderController::class, 'processOrders'])->name('orders.process');
 
+Route::get('/tablet/ober', [TabletOrderController::class, 'showCallWaiter'])->name('tablet.call.waiter');
+Route::post('/tablet/ober/call', [TabletOrderController::class, 'storeCallWaiter'])->name('tablet.store.call');
+
 Route::fallback(function () {
-    return view('index');
+    return view('customer.index');
 });

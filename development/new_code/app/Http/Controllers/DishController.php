@@ -9,7 +9,7 @@ use App\Models\Dish;
 use App\Models\DishType;
 use Illuminate\Support\Facades\DB;
 
-class AdminController extends Controller
+class DishController extends Controller
 {
     public function index()
     {

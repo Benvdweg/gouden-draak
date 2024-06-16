@@ -56,7 +56,7 @@
                         @endphp
 
                         <button type="submit"
-                                class="bg-red-500 hover:bg-red-600 font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 {{ $textColorClass }}">
+                                class="bg-green-500 hover:bg-green-600 font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 {{ $textColorClass }}">
                             Favorieten
                         </button>
                     </form>

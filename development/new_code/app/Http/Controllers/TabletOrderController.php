@@ -54,7 +54,7 @@ class TabletOrderController extends Controller
             ->where('endtime', '>=', $currentTime)
             ->first();
 
-        if (! $reservation) {
+        if (!$reservation) {
             return redirect()->back()->with('error', 'Geen geldige reservering gevonden.');
         }
 
@@ -105,7 +105,7 @@ class TabletOrderController extends Controller
 
         $orderCheck = $this->tabletOrderService->canPlaceOrder($reservation);
 
-        if (! $orderCheck['canPlace']) {
+        if (!$orderCheck['canPlace']) {
             return redirect()->route('tablet.index')
                 ->with('error', "Je moet nog {$orderCheck['waitMessage']} wachten voordat je een nieuwe bestelling kunt plaatsen.");
         }
@@ -135,7 +135,7 @@ class TabletOrderController extends Controller
     {
         $favorites = $request->session()->get('favorites', []);
 
-        if (! in_array($dish->id, $favorites)) {
+        if (!in_array($dish->id, $favorites)) {
             $favorites[] = $dish->id;
         } else {
             $favorites = array_diff($favorites, [$dish->id]);
@@ -174,6 +174,20 @@ class TabletOrderController extends Controller
         $orderLines = OrderLine::where('round_number', $roundNumber)->get();
 
         return view('tablet.show_prev_order', compact('orderLines', 'roundNumber'));
+    }
+
+    public function showCallWaiter()
+    {
+        $reservation = session('current_reservation');
+
+        return view('tablet.call-waiter', compact('reservation'));
+    }
+
+    public function storeCallWaiter()
+    {
+        $reservation = session('current_reservation');
+
+        return redirect()->route('tablet.index')->with('success', 'De ober zal zo bij u zijn.');
     }
 
     public function addWholeOrder(Request $request)
