@@ -36,19 +36,19 @@ class CheckoutController extends Controller
     {
         $orders = Order::orderBy('order_time', 'desc')->paginate(8);
 
-        return view('checkout.orders', ['orders' => $orders]);
+        return view('checkout.orders', compact('orders'));
     }
 
     public function showOrderLines(Order $order)
     {
-        return view('checkout.orderLines', ['order' => $order]);
+        return view('checkout.orderLines', compact('order'));
     }
 
     public function showComment($orderLineId)
     {
         $orderLine = OrderLine::find($orderLineId);
 
-        return view('checkout.comment', ['orderLine' => $orderLine]);
+        return view('checkout.comment', compact('orderLine'));
     }
 
     public function updateComment(Request $request, $orderId)
@@ -64,6 +64,6 @@ class CheckoutController extends Controller
 
         $orders = Order::orderBy('order_time', 'desc')->paginate(8);
 
-        return redirect()->route('checkout.orders', ['orders' => $orders])->with('success', 'Opmerking succesvol bijgewerkt.');
+        return redirect()->route('checkout.orders', compact('orders'))->with('success', 'Opmerking succesvol bijgewerkt.');
     }
 }

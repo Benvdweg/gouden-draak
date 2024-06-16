@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginTableRequest;
 use App\Models\Dish;
 use App\Models\DishType;
 use App\Models\Order;
@@ -38,10 +39,8 @@ class TabletOrderController extends Controller
         return view('tablet.dashboard');
     }
 
-    public function loginTable(Request $request)
+    public function loginTable(LoginTableRequest $request)
     {
-        $request->validate(['email' => 'required']);
-
         $request->session()->forget(['email', 'current_reservation']);
 
         $request->session()->flash('email', $request->email);
