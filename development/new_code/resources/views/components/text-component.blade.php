@@ -21,7 +21,7 @@
             {!! $component->content !!}
         </div>
         <div class="justify-end flex">
-            <form action="#" method="POST">
+            <form action="{{route('component.edit.text', ['page' => $page])}}" method="POST">
                 @csrf
                 <input type="hidden" name="componentId" value="{{$component->id}}">
                 <button type="submit"

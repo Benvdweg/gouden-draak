@@ -7,6 +7,7 @@ use App\Http\Requests\StoreComponentRequest;
 use App\Models\Component;
 use App\Models\Page;
 use App\Services\ComponentMovementService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ComponentController extends Controller
@@ -48,5 +49,14 @@ class ComponentController extends Controller
         });
 
         return redirect()->route('cms.show.page', ['page' => $page])->with('success', 'Component is verwijderd!');
+    }
+
+    public function edit(Request $request, Page $page)
+    {
+        $validated = $request->validate([
+            'componentId' => 'required|int|exists:components,id',
+        ]);
+
+        return redirect()->route('cms.show.page', ['page' => $page])->with('editing', $validated['componentId']);
     }
 }
