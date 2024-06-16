@@ -1,8 +1,19 @@
 @extends('layout.admin-layout')
 
 @section('content')
+
+
     <div class="flex flex-col w-full">
-        {{$page->title}}
+        <a href="{{route('cms.index')}}" class="p-4 hover:underline text-blue-800 hover:text-blue-900">
+            Terug naar overzicht
+        </a>
+
+        <h1 class="font-semibold text-4xl p-4">{{$page->title}}</h1>
+        <h2 class="font-semibold text-2xl p-4">
+            <a href="{{route('customer.page-custom-show', ['page' => $page])}}" class="text-blue-800 hover:text-blue-900 hover:underline">
+                goudendraak.nl/{{$page->slug}}
+            </a>
+        </h2>
 
         @foreach($components as $component)
             @if($component instanceof \App\Models\TextComponent)

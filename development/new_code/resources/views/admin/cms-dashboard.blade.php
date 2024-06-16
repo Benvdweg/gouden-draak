@@ -42,9 +42,10 @@
             <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 @foreach($pages as $page)
                     <div class="bg-white rounded-lg shadow-md overflow-hidden w-64 h-32">
-                        <div class="p-4 flex flex-col space-y-10">
-                            <h2 class="text-lg font-semibold mb-2 truncate"
+                        <div class="p-4 flex flex-col gap-2">
+                            <h2 class="text-lg font-semibold mb-1 truncate"
                                 title="{{ $page->title }}">{{ $page->title }}</h2>
+                            <p>Aantal componenten: {{$page->getComponentCount()}}</p>
                             <div class="flex justify-between">
                                 <form action="{{route('cms.destroy.page')}}" method="POST">
                                     @method('DELETE')

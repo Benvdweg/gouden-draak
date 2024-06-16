@@ -15,4 +15,9 @@ class Page extends Model
     {
         return $this->hasMany(Component::class);
     }
+
+    public function getComponentCount()
+    {
+        return Component::where('page_id', $this->id)->count();
+    }
 }
