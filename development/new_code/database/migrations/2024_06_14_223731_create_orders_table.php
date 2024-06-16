@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->integer('id', true)->unique('id');
-            $table->string('email')->nullable()->unique('email');
+            $table->string('email')->nullable();
             $table->dateTime('order_time')->nullable();
             $table->string('bill_pdf')->nullable();
             $table->integer('reservation_id')->nullable();

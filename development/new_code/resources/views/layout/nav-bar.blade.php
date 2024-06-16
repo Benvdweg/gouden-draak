@@ -4,13 +4,17 @@
         <h1 class="text-4xl text-yellow-400 font-bold">Chinees Indische Specialiteiten</h1>
         <h1 class="text-4xl text-yellow-400 font-bold">De Gouden Draak</h1>
         <div class="mt-8 flex justify-center border border-black p-0.5 space-x-1">
-            <a href="#"
+            <a href="{{route('show.basic.menu')}}"
                class="text-xl py-1 text-white bg-blue-500 hover:bg-blue-600 flex-1 text-center font-bold border border-black">Menukaart</a>
             <a href="{{route('customer.news')}}"
                class="text-xl py-1 text-white bg-blue-500 hover:bg-blue-600 flex-1 text-center font-bold border border-black">Nieuws</a>
             <a href="{{ route('customer.contact') }}"
                class="text-xl py-1 text-white bg-blue-500 hover:bg-blue-600 flex-1 text-center font-bold border border-black">
                 Contact
+            </a>
+            <a href="{{ route('pick-up.menu-category-show') }}"
+               class="text-xl py-1 text-white bg-blue-500 hover:bg-blue-600 flex-1 text-center font-bold border border-black">
+                Afhalen
             </a>
         </div>
     </div>
