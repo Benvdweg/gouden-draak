@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProcessOrderRequest;
 use App\Models\Dish;
 use App\Models\DishType;
 use App\Models\Order;
@@ -50,7 +51,7 @@ class PickUpController extends Controller
         return view('customer.pick-up-orders', compact('orders'));
     }
 
-    public function processOrders(Request $request)
+    public function processOrders(ProcessOrderRequest $request)
     {
         $orders = $request->session()->pull('pickup-orders', []);
 
