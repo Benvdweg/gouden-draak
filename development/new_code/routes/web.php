@@ -4,6 +4,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TabletOrderController;
 use App\Http\Controllers\WaiterCallController;
@@ -65,6 +66,11 @@ Route::post('/tablet/bestellingen', [TabletOrderController::class, 'processOrder
 
 Route::get('/tablet/ober', [TabletOrderController::class, 'showCallWaiter'])->name('tablet.call.waiter');
 Route::post('/tablet/ober/call', [WaiterCallController::class, 'store'])->name('tablet.store.call');
+
+Route::get('/admin/cms', [PageController::class, 'index'])->name('cms.index');
+Route::post('/admin/cms/pagina-maken', [PageController::class, 'store'])->name('cms.store.page');
+Route::delete('/admin/cms/verwijderen', [PageController::class, 'destroy'])->name('cms.destroy.page');
+
 
 Route::fallback(function () {
     return view('customer.index');
