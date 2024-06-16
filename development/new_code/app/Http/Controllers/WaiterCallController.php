@@ -25,9 +25,8 @@ class WaiterCallController extends Controller
             return redirect()->route('tablet.index')->with('error', 'Er is al een ober onderweg naar uw tafel.');
         }
 
-
         WaiterCall::create([
-           'table_number' => $reservation->table_number,
+            'table_number' => $reservation->table_number,
         ]);
 
         return redirect()->route('tablet.index')->with('success', 'De ober zal zo bij u zijn.');
