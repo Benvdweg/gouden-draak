@@ -42,7 +42,7 @@
                     <div
                         class="bg-blue-100 border-t-4 border-blue-500 rounded-b text-blue-900 px-4 py-3 shadow-md mb-4">
                         <h3 class="font-bold text-xl">{{ $latestNews->title }}</h3>
-                        <p class="text-sm">{!! nl2br(e($latestNews->message)) !!}</p>
+                        <p class="text-sm overflow-hidden break-words">{!! nl2br(e($latestNews->message)) !!}</p>
                         <p class="text-xs text-gray-500">{{ $latestNews->created_at->diffForHumans() }}</p>
                     </div>
                 @else

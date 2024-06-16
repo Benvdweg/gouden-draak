@@ -4,6 +4,7 @@
 <head>
     @vite('resources/css/admin-app.css')
     @vite('resources/js/app.js')
+    <link rel="icon" href="{{asset('images/golden-dragon.jpg')}}">
     <title>De Gouden Kassière</title>
 </head>
 

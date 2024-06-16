@@ -10,7 +10,7 @@ use App\Http\Controllers\TabletOrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
+    return view('customer.index');
 });
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');

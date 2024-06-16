@@ -10,6 +10,6 @@ class DashboardController extends Controller
     {
         $latestNews = NewsMessage::latest()->first();
 
-        return view('news', compact('latestNews'));
+        return view('customer.news', compact('latestNews'));
     }
 }
