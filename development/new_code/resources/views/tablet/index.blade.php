@@ -37,8 +37,10 @@
         </div>
     </div>
     <div class="mt-8 flex justify-end">
-        <a href="{{route('tablet.call.waiter')}}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 p-2 rounded-full">
-            Roep de ober
+        <a href="{{route('tablet.call.waiter')}}">
+            <div class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 p-2 rounded-full">
+                Roep de ober
+            </div>
         </a>
     </div>
 @endsection

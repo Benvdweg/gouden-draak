@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class WaiterCall extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'table_number',
+        'handled',
+    ];
 }

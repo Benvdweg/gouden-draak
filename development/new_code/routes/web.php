@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\DishController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DishController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TabletOrderController;
@@ -42,6 +42,7 @@ Route::post('/reservations/{reservation}/assign-table', [ReservationController::
     ->name('reservations.assignTable');
 
 Route::get('/admin/waiter-calls', [WaiterCallController::class, 'index'])->name('waiter.calls');
+Route::patch('/admin/waiter-calls/{waiterCall}', [WaiterCallController::class, 'update'])->name('waiter.call.handle');
 
 Route::get('/tablet', [TabletOrderController::class, 'showTabletDashboard'])->name('tablet.dashboard');
 Route::post('/tablet', [TabletOrderController::class, 'loginTable'])->name('tablet.number.set');
@@ -63,7 +64,7 @@ Route::get('/tablet/bestellingen', [TabletOrderController::class, 'showOrders'])
 Route::post('/tablet/bestellingen', [TabletOrderController::class, 'processOrders'])->name('orders.process');
 
 Route::get('/tablet/ober', [TabletOrderController::class, 'showCallWaiter'])->name('tablet.call.waiter');
-Route::post('/tablet/ober/call', [TabletOrderController::class, 'storeCallWaiter'])->name('tablet.store.call');
+Route::post('/tablet/ober/call', [WaiterCallController::class, 'store'])->name('tablet.store.call');
 
 Route::fallback(function () {
     return view('customer.index');

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDishRequest;
 use App\Models\Addition;
 use App\Models\Dish;
 use App\Models\DishType;
+use App\Models\WaiterCall;
 use Illuminate\Support\Facades\DB;
 
 class DishController extends Controller
