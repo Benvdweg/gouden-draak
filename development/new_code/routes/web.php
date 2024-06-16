@@ -18,7 +18,7 @@ Route::get('/orders', [CheckoutController::class, 'showOrders'])->name('checkout
 Route::get('/orders/{order}/orderLines', [CheckoutController::class, 'showOrderLines'])->name('checkout.orderLines');
 Route::get('/orders/{orderLine}/comment', [CheckoutController::class, 'showComment'])->name('checkout.comment');
 Route::put('/orders/{orderId}/update-comment', [CheckOutController::class, 'updateComment'])
-->name('orders.updateComment');
+    ->name('orders.updateComment');
 
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
@@ -54,7 +54,6 @@ Route::get('/admin/reserveringen', [ReservationController::class, 'index'])->nam
 Route::post('/reservations/{reservation}/assign-table', [ReservationController::class, 'assignTable'])
     ->name('reservations.assignTable');
 
-
 Route::post('/order/favorite/{dish}', [OrderController::class, 'favorite'])->name('order.favorite');
 
 Route::post('/tabletOrder/favorite/{dish}', [TabletOrderController::class, 'favorite'])->name('tabletOrder.favorite');
@@ -65,10 +64,6 @@ Route::get('/tablet/order-history', [TabletOrderController::class, 'orderHistory
 Route::post('/tablet/addWhole', [TabletOrderController::class, 'addWholeOrder'])->name('tablet.addWhole');
 
 Route::get('/order/{round_number}', [TabletOrderController::class, 'showPrevOrder'])->name('order.show');
-
-
-
-
 
 Route::fallback(function () {
     return view('index');

@@ -133,71 +133,71 @@ class TabletOrderController extends Controller
     }
 
     public function favorite(Request $request, Dish $dish)
-{
-    $favorites = $request->session()->get('favorites', []);
+    {
+        $favorites = $request->session()->get('favorites', []);
 
-    if (!in_array($dish->id, $favorites)) {
-        $favorites[] = $dish->id;
+        if (! in_array($dish->id, $favorites)) {
+            $favorites[] = $dish->id;
+        } else {
+            $favorites = array_diff($favorites, [$dish->id]);
+            $message = 'Gerecht niet meer gemarkeerd als favoriet.';
+        }
+
+        $request->session()->put('favorites', $favorites);
+
+        return redirect()->back()->with('success', 'Gerecht gemarkeerd als favoriet!');
     }
 
-    else{
-        $favorites = array_diff($favorites, [$dish->id]);
-        $message = 'Gerecht niet meer gemarkeerd als favoriet.';
-    }
-
-    $request->session()->put('favorites', $favorites);
-
-    return redirect()->back()->with('success', 'Gerecht gemarkeerd als favoriet!');
-}
-
-public function showFavorites()
+    public function showFavorites()
     {
         $favoriteIds = session()->get('favorites', []);
 
         $favorites = Dish::whereIn('id', $favoriteIds)->get();
+
         return view('tablet.favorites', [
             'favorites' => $favorites,
         ]);
     }
 
     public function orderHistory()
-{
-    $reservation = session('current_reservation');
+    {
+        $reservation = session('current_reservation');
 
-    $orders = Order::where('reservation_id', $reservation->id);
+        $orders = Order::where('reservation_id', $reservation->id);
 
-    $orders = $orders->get();
+        $orders = $orders->get();
 
-    return view('tablet.order_history', compact('orders'));
-}
-
-public function showPrevOrder($roundNumber)
-{
-    $orderLines = OrderLine::where('round_number', $roundNumber)->get();
-
-    return view('tablet.show_prev_order', compact('orderLines', 'roundNumber'));
-}
-
-public function addWholeOrder(Request $request)
-{
-    $orderLineIds = $request->input('orderlines', []);
-
-    $orderLines = OrderLine::whereIn('id', $orderLineIds)->get();
-
-    foreach ($orderLines as $orderLine) {
-
-        $dish = $orderLine->dish;
-
-        $order = $request->session()->get('orders', []);
-
-        $order[] = [
-            'id' => $dish->id,
-            'name' => $dish->name,
-            'price' => $dish->price,
-        ];
-
-        $request->session()->put('orders', $order);
+        return view('tablet.order_history', compact('orders'));
     }
-    return redirect()->route('tablet.index')->with('success', 'Hele bestelling is toegevoegd.');
-}
+
+    public function showPrevOrder($roundNumber)
+    {
+        $orderLines = OrderLine::where('round_number', $roundNumber)->get();
+
+        return view('tablet.show_prev_order', compact('orderLines', 'roundNumber'));
+    }
+
+    public function addWholeOrder(Request $request)
+    {
+        $orderLineIds = $request->input('orderlines', []);
+
+        $orderLines = OrderLine::whereIn('id', $orderLineIds)->get();
+
+        foreach ($orderLines as $orderLine) {
+
+            $dish = $orderLine->dish;
+
+            $order = $request->session()->get('orders', []);
+
+            $order[] = [
+                'id' => $dish->id,
+                'name' => $dish->name,
+                'price' => $dish->price,
+            ];
+
+            $request->session()->put('orders', $order);
+        }
+
+        return redirect()->route('tablet.index')->with('success', 'Hele bestelling is toegevoegd.');
+    }
 }

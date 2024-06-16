@@ -33,11 +33,11 @@ class CheckoutController extends Controller
     }
 
     public function showOrders()
-{
-    $orders = Order::orderBy('order_time', 'desc')->paginate(8);
+    {
+        $orders = Order::orderBy('order_time', 'desc')->paginate(8);
 
-    return view('checkout.orders', ['orders' => $orders]);
-}
+        return view('checkout.orders', ['orders' => $orders]);
+    }
 
     public function showOrderLines(Order $order)
     {
@@ -45,12 +45,13 @@ class CheckoutController extends Controller
     }
 
     public function showComment($orderLineId)
-{
-    $orderLine = OrderLine::find($orderLineId);
-    return view('checkout.comment', ['orderLine' => $orderLine]);
-}
+    {
+        $orderLine = OrderLine::find($orderLineId);
 
-public function updateComment(Request $request, $orderId)
+        return view('checkout.comment', ['orderLine' => $orderLine]);
+    }
+
+    public function updateComment(Request $request, $orderId)
     {
         $request->validate([
             'opmerking' => 'required|string|max:255',
