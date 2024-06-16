@@ -10,4 +10,9 @@ class Page extends Model
         'slug',
         'title',
     ];
+
+    public function components()
+    {
+        return $this->hasMany(Component::class);
+    }
 }

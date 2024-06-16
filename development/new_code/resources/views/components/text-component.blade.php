@@ -1,4 +1,4 @@
-<x-component-control :page="$page" :component="$component"/>
+<x-component-control :page="$page" :component="$component" :isView="$isView ?? null"/>
 
 @if($editing == $component->id)
     <form action="{{route('component.save.text', ['page' => $page])}}" method="POST">
@@ -17,19 +17,25 @@
     </form>
 @else
     <div>
-        <div class="prose max-w-full">
-            {!! $component->content !!}
-        </div>
-        <div class="justify-end flex">
-            <form action="{{route('component.edit.text', ['page' => $page])}}" method="POST">
-                @csrf
-                <input type="hidden" name="componentId" value="{{$component->id}}">
-                <button type="submit"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 p-2 mt-6">
-                    Bewerken
-                </button>
-            </form>
-        </div>
+        @if(!isset($isView))
+            <div class="prose max-w-full">
+                {!! ($component->content) !!}
+            </div>
+            <div class="justify-end flex">
+                <form action="{{route('component.edit.text', ['page' => $page])}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="componentId" value="{{$component->id}}">
+                    <button type="submit"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 p-2 mt-6">
+                        Bewerken
+                    </button>
+                </form>
+            </div>
+        @else
+            <div class="prose text-left flex justify-center bg-[#fffaf0] p-4 border-black border">
+                {!! ($component->content) !!}
+            </div>
+        @endif
     </div>
 @endif
 
