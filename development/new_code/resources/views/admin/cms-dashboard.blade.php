@@ -6,7 +6,8 @@
         <h1 class="text-2xl font-bold mb-4">Pagina overzicht</h1>
 
         <div class="w-full max-w-md">
-            <form action="{{ route('cms.store.page') }}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form action="{{ route('cms.store.page') }}" method="post"
+                  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
                 <div class="mb-4">
                     <label for="title" class="block text-sm font-bold text-gray-700 mb-2">Titel</label>
@@ -42,7 +43,8 @@
                 @foreach($pages as $page)
                     <div class="bg-white rounded-lg shadow-md overflow-hidden w-64 h-32">
                         <div class="p-4 flex flex-col space-y-10">
-                            <h2 class="text-lg font-semibold mb-2 truncate" title="{{ $page->title }}">{{ $page->title }}</h2>
+                            <h2 class="text-lg font-semibold mb-2 truncate"
+                                title="{{ $page->title }}">{{ $page->title }}</h2>
                             <div class="flex justify-between">
                                 <form action="{{route('cms.destroy.page')}}" method="POST">
                                     @method('DELETE')
@@ -51,7 +53,8 @@
                                     <button type="submit" class="text-red-600 hover:underline">Verwijderen</button>
                                 </form>
                                 <div class="flex justify-end">
-                                    <a href="#" class="text-blue-600 hover:underline">Bekijken</a>
+                                    <a href="{{route('cms.show.page', ['page' => $page])}}"
+                                       class="text-blue-600 hover:underline">Bekijken</a>
                                 </div>
                             </div>
                         </div>

@@ -21,7 +21,7 @@ Route::get('/orders/{orderLine}/comment', [CheckoutController::class, 'showComme
 Route::put('/orders/{orderId}/update-comment', [CheckOutController::class, 'updateComment'])
     ->name('orders.updateComment');
 
-Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+//Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
 Route::get('/admin', [DishController::class, 'index'])->name('admin.dishes');
 
@@ -70,8 +70,4 @@ Route::post('/tablet/ober/call', [WaiterCallController::class, 'store'])->name('
 Route::get('/admin/cms', [PageController::class, 'index'])->name('cms.index');
 Route::post('/admin/cms/pagina-maken', [PageController::class, 'store'])->name('cms.store.page');
 Route::delete('/admin/cms/verwijderen', [PageController::class, 'destroy'])->name('cms.destroy.page');
-
-
-Route::fallback(function () {
-    return view('customer.index');
-});
+Route::get('/admin/cms/{page}', [PageController::class, 'show'])->name('cms.show.page');
