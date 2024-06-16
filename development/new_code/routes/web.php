@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PickUpController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TabletOrderController;
 use App\Http\Controllers\WaiterCallController;
@@ -80,3 +81,9 @@ Route::delete('/admin/cms/{page}/component-verwijderen', [ComponentController::c
 Route::post('/admin/cms/{page}/component-bewerken', [ComponentController::class, 'edit'])->name('component.edit.text');
 Route::post('/admin/cms/{page}/component-tekst-opslaan', [ComponentController::class, 'updateTextComponent'])->name('component.save.text');
 Route::post('/admin/cms/{page}/{component}/verander-volgorde', [ComponentController::class, 'updateComponentOrder'])->name('component.change.order');
+
+Route::get('/afhalen/categories', [PickUpController::class, 'showCategoryMenu'])->name('pick-up.menu-category-show');
+Route::get('/afhalen/{category}', [PickUpController::class, 'showDishMenu'])->name('pick-up.menu-dishes-show');
+Route::post('/afhalen/bestellen/toevoegen/{dish}', [PickUpController::class, 'addToOrder'])->name('pickup.order.add');
+Route::get('/afhalen/winkelwagen', [PickUpController::class, 'showOrders'])->name('pick-up-orders-cart');
+Route::post('/afhalen/bestellen', [PickUpController::class, 'processOrders'])->name('pick-up-process-orders');

@@ -13,12 +13,9 @@ class Order extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'order_id',
-        'dish_id',
-        'round_number',
-        'comment',
         'reservation_id',
         'order_time',
+        'email',
     ];
 
     protected $casts = [
