@@ -2,6 +2,7 @@
 
 @section('content')
     <div>
+        @include('shared.success-message')
         <div class="justify-between flex">
             <a href="{{ route('pick-up.menu-category-show')}}"
                class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full w-48 justify-center mb-4">

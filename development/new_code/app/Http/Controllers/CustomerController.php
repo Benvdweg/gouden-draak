@@ -27,4 +27,9 @@ class CustomerController extends Controller
 
         return view('customer.custom-page', compact('page', 'components', 'editing', 'isView'));
     }
+
+    public function showMenu()
+    {
+        return view('customer.menu');
+    }
 }
