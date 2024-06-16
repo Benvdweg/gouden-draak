@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('components', function (Blueprint $table) {
             $table->integer('id', true)->unique('id');
             $table->integer('page_id')->index('page_id');
-            $table->json('arguments');
-            $table->string('type')->nullable();
+            $table->json('arguments')->nullable();
+            $table->string('type');
+            $table->text('content')->nullable();
             $table->integer('order');
-
+            $table->timestamps();
             $table->primary(['id']);
         });
     }

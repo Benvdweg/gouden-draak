@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\NewsController;
@@ -71,3 +72,6 @@ Route::get('/admin/cms', [PageController::class, 'index'])->name('cms.index');
 Route::post('/admin/cms/pagina-maken', [PageController::class, 'store'])->name('cms.store.page');
 Route::delete('/admin/cms/verwijderen', [PageController::class, 'destroy'])->name('cms.destroy.page');
 Route::get('/admin/cms/{page}', [PageController::class, 'show'])->name('cms.show.page');
+
+Route::post('/admin/cms/{page}/component-toevoegen', [ComponentController::class, 'store'])->name('component.store');
+Route::delete('/admin/cms/{page}/component-verwijderen', [ComponentController::class, 'destroy'])->name('component.destroy');

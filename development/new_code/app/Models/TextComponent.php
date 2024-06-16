@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Parental\HasParent;
 
-class TextComponent
+class TextComponent extends Component
 {
     use HasParent;
 

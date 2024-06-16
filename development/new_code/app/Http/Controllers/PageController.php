@@ -31,7 +31,11 @@ class PageController extends Controller
 
         $componentTypes = $childTypesWithTitles;
 
-        return view('admin.cms-page-edit', compact('page', 'componentTypes'));
+        $components = Component::where('page_id', $page->id)->get();
+
+        $editing = session('editing') ?? 0;
+
+        return view('admin.cms-page-edit', compact('page', 'componentTypes', 'components', 'editing'));
     }
 
     public function store(StorePageRequest $request)

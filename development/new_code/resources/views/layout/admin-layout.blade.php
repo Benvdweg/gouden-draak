@@ -12,6 +12,7 @@
 <div class="flex">
     @include('layout.admin-nav-bar')
     @yield('content')
+    @yield("scripts")
 </div>
 </body>
 </html>
