@@ -76,4 +76,15 @@ class ComponentController extends Controller
 
         return redirect()->route('cms.show.page', ['page' => $page])->with('success', 'Component is geupdate!');
     }
+
+    public function updateComponentOrder(Request $request, Page $page, Component $component)
+    {
+        if ($request->direction == 'up') {
+            $this->componentMovementService->moveUp($component);
+        } elseif ($request->direction == 'down') {
+            $this->componentMovementService->moveDown($component);
+        }
+
+        return redirect()->route('cms.show.page', ['page' => $page]);
+    }
 }

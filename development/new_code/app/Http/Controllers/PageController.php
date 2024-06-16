@@ -31,7 +31,7 @@ class PageController extends Controller
 
         $componentTypes = $childTypesWithTitles;
 
-        $components = Component::where('page_id', $page->id)->get();
+        $components = Component::where('page_id', $page->id)->orderBy('order', 'asc')->get();
 
         $editing = session('editing') ?? 0;
 

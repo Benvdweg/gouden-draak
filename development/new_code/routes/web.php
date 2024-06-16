@@ -77,3 +77,4 @@ Route::post('/admin/cms/{page}/component-toevoegen', [ComponentController::class
 Route::delete('/admin/cms/{page}/component-verwijderen', [ComponentController::class, 'destroy'])->name('component.destroy');
 Route::post('/admin/cms/{page}/component-bewerken', [ComponentController::class, 'edit'])->name('component.edit.text');
 Route::post('/admin/cms/{page}/component-tekst-opslaan', [ComponentController::class, 'updateTextComponent'])->name('component.save.text');
+Route::post('/admin/cms/{page}/{component}/verander-volgorde', [ComponentController::class, 'updateComponentOrder'])->name('component.change.order');
