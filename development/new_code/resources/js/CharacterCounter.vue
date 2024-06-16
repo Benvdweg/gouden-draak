@@ -11,8 +11,10 @@
             rows="5"
             placeholder="Schrijf je bericht hier"
         ></textarea>
-        <div class="text-right mt-2 text-gray-500">
-            Karakters: {{ characterCount }} / {{ maxCharacters }}
+        <div class="text-right mt-2">
+            <span :class="{'text-red-500': characterCount > maxCharacters}" class="text-gray-500">
+                Karakters: {{ characterCount }} / {{ maxCharacters }}
+            </span>
         </div>
     </div>
 </template>
@@ -36,7 +38,7 @@ export default {
         };
     },
     watch: {
-        initialContent: function (newVal) {
+        initialContent(newVal) {
             this.content = newVal;
             this.updateCharacterCount();
         }

@@ -23,7 +23,7 @@
                     <!-- Include the updated CharacterCounter Vue component -->
                     <character-counter
                         :initial-content="'{{ addslashes(old('message')) }}'"
-                        :max-characters="1000"
+                        :max-characters="4000"
                     >
                     </character-counter>
                     @error('message')
