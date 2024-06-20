@@ -1,8 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-    <div class=" bg-red-500 p-8">
-
+    <div>
         <div class="p-4 mt-8">
             <div class="bg-[#fffaf0] border border-black p-2">
                 <h3 class="text-center">Al jaren is De Gouden Draak een begrip als het gaat om de beste afhaalgerechten
@@ -12,7 +11,6 @@
 
                 {{--                Aanbieding implementatie--}}
             </div>
-           
         </div>
     </div>
 @endsection
