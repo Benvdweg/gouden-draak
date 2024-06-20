@@ -20,7 +20,7 @@
     <div class="flex flex-wrap justify-center gap-4">
         @foreach($pages as $page)
             <a href="{{ url($page->slug) }}"
-               class="text-xl py-1 px-2 text-white bg-blue-500 hover:bg-blue-600 text-center font-bold border border-black w-32">
+               class="text-lg text-white flex-1 text-center border border-black bg-cover bg-no-repeat bg-menu-gradient font-times">
                 {{ $page->title }}
             </a>
         @endforeach
