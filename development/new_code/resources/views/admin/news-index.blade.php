@@ -20,7 +20,6 @@
 
                 <div class="mb-6">
                     <label for="message" class="block text-gray-700 font-bold mb-2">Bericht</label>
-                    <!-- Include the updated CharacterCounter Vue component -->
                     <character-counter
                         :initial-content="'{{ addslashes(old('message')) }}'"
                         :max-characters="4000"

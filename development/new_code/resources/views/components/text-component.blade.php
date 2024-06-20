@@ -32,7 +32,7 @@
                 </form>
             </div>
         @else
-            <div class="prose text-left flex justify-center bg-[#fffaf0] p-4 border-black border">
+            <div class="text-left flex flex-col justify-center bg-[#fffaf0] p-4 border-black border">
                 {!! ($component->content) !!}
             </div>
         @endif

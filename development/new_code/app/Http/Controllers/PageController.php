@@ -42,7 +42,7 @@ class PageController extends Controller
     {
         Page::create([
             'title' => $request->title,
-            'slug' => 'pagina/'.$request->slug,
+            'slug' => $request->slug,
         ]);
 
         return redirect()->back();

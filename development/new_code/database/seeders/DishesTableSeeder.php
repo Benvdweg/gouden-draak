@@ -39,7 +39,7 @@ class DishesTableSeeder extends Seeder
                 'id' => 3,
                 'name' => 'Tomatensoep',
                 'price' => '2.90',
-                'description' => 'fsdfsdfsdf',
+                'description' => null,
                 'type_id' => 1,
                 'menu_number' => 3,
                 'addition_id' => null,

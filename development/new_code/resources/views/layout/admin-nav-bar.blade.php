@@ -20,9 +20,6 @@
         </a>
         <a href="{{ route('cms.index') }}" class="flex items-center px-4 py-2 rounded-md {{ request()->routeIs('cms.index') ? 'text-gray-700 bg-gray-100' : 'hover:bg-gray-700 hover:text-gray-100' }}">
             <span>CMS</span>
-            @if($callCount > 0)
-                <span class="ml-2 px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $callCount }}</span>
-            @endif
         </a>
     </nav>
 </div>

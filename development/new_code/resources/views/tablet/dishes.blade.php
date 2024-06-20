@@ -20,7 +20,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         @foreach($dishes as $dish)
             <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-center items-center">
-                <h5 class="text-xl font-semibold mb-2 text-center">{{ $dish->name }}</h5>
+                <h5 class="text-xl font-semibold mb-2 text-center">{!! $dish->name !!}</h5>
                 <p class="text-sm text-gray-600 mb-4 text-center">{{ $dish->description }}</p>
                 <div class="flex items-center justify-center mb-4">
                     <span class="text-xl font-semibold text-gray-900">$ {{ $dish->price }}</span>
