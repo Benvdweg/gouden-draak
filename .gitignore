@@ -49,3 +49,4 @@ venv.bak/
 .venv
 development/scripts/.idea/scripts.iml
 development/scripts/.idea/misc.xml
+/development/new_code/.idea
