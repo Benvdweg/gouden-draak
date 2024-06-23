@@ -55,15 +55,6 @@ Route::prefix('order')->group(function () {
     Route::get('/{round_number}', [TabletOrderController::class, 'showPrevOrder'])->name('order.show');
 });
 
-// Checkout routes
-Route::prefix('checkout')->middleware('user.type:1,2')->group(function () {
-    Route::get('/', [CheckoutController::class, 'index'])->name('checkout');
-    Route::get('/orders', [CheckoutController::class, 'showOrders'])->name('checkout.orders');
-    Route::get('/orders/{order}/orderLines', [CheckoutController::class, 'showOrderLines'])->name('checkout.orderLines');
-    Route::get('/orders/{orderLine}/comment', [CheckoutController::class, 'showComment'])->name('checkout.comment');
-    Route::put('/orders/{orderId}/update-comment', [CheckoutController::class, 'updateComment'])->name('orders.updateComment');
-});
-
 // Admin routes
 Route::prefix('admin')->group(function () {
     Route::get('/', [DishController::class, 'index'])->name('admin.dishes')->middleware('user.type:1');
@@ -88,6 +79,15 @@ Route::prefix('admin')->group(function () {
         Route::post('/{page}/component-bewerken', [ComponentController::class, 'edit'])->name('component.edit.text');
         Route::post('/{page}/component-tekst-opslaan', [ComponentController::class, 'updateTextComponent'])->name('component.save.text');
         Route::post('/{page}/{component}/verander-volgorde', [ComponentController::class, 'updateComponentOrder'])->name('component.change.order');
+    });
+
+    // Checkout routes
+    Route::prefix('checkout')->middleware('user.type:1,2')->group(function () {
+        Route::get('/', [CheckoutController::class, 'index'])->name('checkout');
+        Route::get('/orders', [CheckoutController::class, 'showOrders'])->name('checkout.orders');
+        Route::get('/orders/{order}/orderLines', [CheckoutController::class, 'showOrderLines'])->name('checkout.orderLines');
+        Route::get('/orders/{orderLine}/comment', [CheckoutController::class, 'showComment'])->name('checkout.comment');
+        Route::put('/orders/{orderId}/update-comment', [CheckoutController::class, 'updateComment'])->name('orders.updateComment');
     });
 });
 

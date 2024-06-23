@@ -15,7 +15,7 @@ class DishController extends Controller
     {
         $dishes = Dish::withMenuOrAddition()->paginate(8);
 
-        return view('admin.index', compact('dishes'));
+        return view('admin.dishes.index', compact('dishes'));
     }
 
     public function destroy(Dish $dish)
@@ -36,7 +36,7 @@ class DishController extends Controller
     {
         $types = DishType::pluck('type', 'id')->toArray();
 
-        return view('admin.create-dish', compact('types'));
+        return view('admin.dishes.create-dish', compact('types'));
     }
 
     public function store(StoreDishRequest $request)
@@ -61,7 +61,7 @@ class DishController extends Controller
     {
         $dish->addition = json_decode($dish->addition);
 
-        return view('admin.edit', compact('dish'));
+        return view('admin.dishes.edit', compact('dish'));
     }
 
     public function update(EditDishRequest $request, Dish $dish)

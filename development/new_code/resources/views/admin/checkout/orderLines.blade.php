@@ -1,4 +1,4 @@
-@extends('layout.checkout-layout')
+@extends('layout.admin-layout')
 
 @section('content')
 <div class="max-w-screen-lg mx-auto">

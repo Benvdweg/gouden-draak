@@ -26,7 +26,7 @@ class CheckoutController extends Controller
         $dishes = $query->get();
         $categories = DishType::all();
 
-        return view('checkout.index', [
+        return view('admin.checkout.index', [
             'dishes' => $dishes,
             'categories' => $categories,
         ]);
@@ -36,19 +36,19 @@ class CheckoutController extends Controller
     {
         $orders = Order::orderBy('order_time', 'desc')->paginate(8);
 
-        return view('checkout.orders', compact('orders'));
+        return view('admin.checkout.orders', compact('orders'));
     }
 
     public function showOrderLines(Order $order)
     {
-        return view('checkout.orderLines', compact('order'));
+        return view('admin.checkout.orderLines', compact('order'));
     }
 
     public function showComment($orderLineId)
     {
         $orderLine = OrderLine::find($orderLineId);
 
-        return view('checkout.comment', compact('orderLine'));
+        return view('admin.checkout.comment', compact('orderLine'));
     }
 
     public function updateComment(Request $request, $orderId)

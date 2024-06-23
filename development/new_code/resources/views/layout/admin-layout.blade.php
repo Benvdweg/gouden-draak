@@ -16,11 +16,13 @@
     </script>
 </head>
 
-<body>
-<div class="flex">
-    @include('layout.admin-nav-bar')
-    @yield('content')
+<body class="h-screen overflow-hidden">
+    <div class="flex h-full">
+        @include('layout.admin-nav-bar')
+        <div class="flex-1 overflow-y-auto">
+            @yield('content')
+        </div>
+    </div>
     @yield("scripts")
-</div>
 </body>
 </html>
