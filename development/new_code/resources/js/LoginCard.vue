@@ -41,7 +41,7 @@ export default {
                     email: this.email,
                     password: this.password
                 });
-                window.location.href = '/admin/reserveringen';
+                window.location.href = '/admin';
             } catch (error) {
                 if (error.response && error.response.status === 422) {
                     this.errors = error.response.data.errors;

@@ -3,6 +3,11 @@
         <span class="text-2xl font-semibold">{{auth()->user()->role->name}}</span>
     </div>
     <nav class="flex flex-col mt-10 space-y-4">
+        <a href="{{ route('admin.home') }}"
+           class="flex items-center px-4 py-2 rounded-md {{ request()->routeIs('admin.home') ? 'text-gray-700 bg-gray-100' : 'hover:bg-gray-700 hover:text-gray-100' }}">
+            <span>Thuispagina</span>
+        </a>
+
         @if(auth()->user()->role_id == 1)
             <a href="{{ route('admin.dishes') }}"
                class="flex items-center px-4 py-2 rounded-md {{ request()->routeIs('admin.dishes') ? 'text-gray-700 bg-gray-100' : 'hover:bg-gray-700 hover:text-gray-100' }}">
@@ -56,7 +61,7 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit"
-                        class="w-full text-gray-800 px-4 py-2 text-left bg-red-100 rounded-md hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        class="w-full hover:bg-gray-700 hover:text-gray-100 px-4 py-2 text-left rounded-md">
                     Uitloggen
                 </button>
             </form>

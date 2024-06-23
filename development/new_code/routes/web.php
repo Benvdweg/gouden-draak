@@ -57,11 +57,14 @@ Route::prefix('order')->group(function () {
 
 // Admin routes
 Route::prefix('admin')->group(function () {
-    Route::get('/', [DishController::class, 'index'])->name('admin.dishes')->middleware('user.type:1');
-    Route::get('/nieuws-berichten', [NewsController::class, 'show'])->name('admin.news.index')->middleware('user.type:1');
-    Route::post('/nieuws-berichten', [NewsController::class, 'store'])->name('admin.news.store')->middleware('user.type:1');
+    Route::get('/', [DishController::class, 'home'])->name('admin.home')->middleware('user.type:1,2,3');
+
+    Route::get('/all-dishes', [DishController::class, 'index'])->name('admin.dishes')->middleware('user.type:1');
     Route::get('/dishes/create', [DishController::class, 'create'])->name('admin.dishes.create')->middleware('user.type:1');
     Route::post('/dishes', [DishController::class, 'store'])->name('admin.dishes.store')->middleware('user.type:1');
+
+    Route::get('/nieuws-berichten', [NewsController::class, 'show'])->name('admin.news.index')->middleware('user.type:1');
+    Route::post('/nieuws-berichten', [NewsController::class, 'store'])->name('admin.news.store')->middleware('user.type:1');
 
     Route::get('/reserveringen', [ReservationController::class, 'index'])->name('reservations.index')->middleware('user.type:1,2,3');
 

@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class DishController extends Controller
 {
+    public function home()
+    {
+        return view('admin.home');
+    }
+
     public function index()
     {
         $dishes = Dish::withMenuOrAddition()->paginate(8);
@@ -46,7 +51,7 @@ class DishController extends Controller
 
             Dish::create([
                 'name' => $request->input('name'),
-                'price' => (float) $request->input('price'),
+                'price' => (float)$request->input('price'),
                 'description' => $request->input('description'),
                 'type' => $request->input('type'),
                 'menu_number' => $nextMenuNumber,
