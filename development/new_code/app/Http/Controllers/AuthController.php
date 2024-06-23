@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
+class AuthController extends Controller
+{
+    public function login(LoginRequest $request)
+    {
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return response()->json(['message' => 'Login successful']);
+        }
+
+        return response()->json(['error' => 'Deze combinatie van wachtwoord en email is ongeldig.'], 401);
+    }
+
+    public function showLogin()
+    {
+        return view('admin.login');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
+
+}

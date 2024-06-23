@@ -48,7 +48,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="addition" class="block text-sm font-medium text-gray-700">Toevoeging</label>
-                    <input type="text" name="addition" id="addition" value="{{ $dish->addition->letter }}"
+                    <input type="text" name="addition" id="addition" value="{{ $dish->addition->letter ?? ''}}"
                            class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     @error('addition')
                     <span class="text-red-500 mt-2">{{ $message }}</span>

@@ -1,5 +1,3 @@
-<!-- CharacterCounter.vue -->
-
 <template>
     <div>
         <textarea
@@ -50,7 +48,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-/* Add any scoped styles here */
-</style>

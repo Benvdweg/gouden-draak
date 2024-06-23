@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('employees', function (Blueprint $table) {
-            $table->foreign(['role'], 'employees_ibfk_1')->references(['id'])->on('roles')->onUpdate('no action')->onDelete('no action');
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign(['role_id'], 'users_ibfk_1')->references(['id'])->on('roles')->onUpdate('no action')->onDelete('no action');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('employees', function (Blueprint $table) {
-            $table->dropForeign('employees_ibfk_1');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('users_ibfk_1');
         });
     }
 };

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CustomerController;
@@ -55,7 +56,7 @@ Route::prefix('order')->group(function () {
 });
 
 // Checkout routes
-Route::prefix('checkout')->group(function () {
+Route::prefix('checkout')->middleware('user.type:1,2')->group(function () {
     Route::get('/', [CheckoutController::class, 'index'])->name('checkout');
     Route::get('/orders', [CheckoutController::class, 'showOrders'])->name('checkout.orders');
     Route::get('/orders/{order}/orderLines', [CheckoutController::class, 'showOrderLines'])->name('checkout.orderLines');
@@ -65,17 +66,19 @@ Route::prefix('checkout')->group(function () {
 
 // Admin routes
 Route::prefix('admin')->group(function () {
-    Route::get('/', [DishController::class, 'index'])->name('admin.dishes');
-    Route::get('/nieuws-berichten', [NewsController::class, 'show'])->name('admin.news.index');
-    Route::post('/nieuws-berichten', [NewsController::class, 'store'])->name('admin.news.store');
-    Route::get('/dishes/create', [DishController::class, 'create'])->name('admin.dishes.create');
-    Route::post('/dishes', [DishController::class, 'store'])->name('admin.dishes.store');
-    Route::get('/reserveringen', [ReservationController::class, 'index'])->name('reservations.index');
-    Route::get('/waiter-calls', [WaiterCallController::class, 'index'])->name('waiter.calls');
-    Route::patch('/waiter-calls/{waiterCall}', [WaiterCallController::class, 'update'])->name('waiter.call.handle');
+    Route::get('/', [DishController::class, 'index'])->name('admin.dishes')->middleware('user.type:1');
+    Route::get('/nieuws-berichten', [NewsController::class, 'show'])->name('admin.news.index')->middleware('user.type:1');
+    Route::post('/nieuws-berichten', [NewsController::class, 'store'])->name('admin.news.store')->middleware('user.type:1');
+    Route::get('/dishes/create', [DishController::class, 'create'])->name('admin.dishes.create')->middleware('user.type:1');
+    Route::post('/dishes', [DishController::class, 'store'])->name('admin.dishes.store')->middleware('user.type:1');
+
+    Route::get('/reserveringen', [ReservationController::class, 'index'])->name('reservations.index')->middleware('user.type:1,2,3');
+
+    Route::get('/waiter-calls', [WaiterCallController::class, 'index'])->name('waiter.calls')->middleware('user.type:1,3');
+    Route::patch('/waiter-calls/{waiterCall}', [WaiterCallController::class, 'update'])->name('waiter.call.handle')->middleware('user.type:1,2,3');
 
     // CMS routes
-    Route::prefix('cms')->group(function () {
+    Route::prefix('cms')->middleware('user.type:1')->group(function () {
         Route::get('/', [PageController::class, 'index'])->name('cms.index');
         Route::post('/pagina-maken', [PageController::class, 'store'])->name('cms.store.page');
         Route::delete('/verwijderen', [PageController::class, 'destroy'])->name('cms.destroy.page');
@@ -88,6 +91,11 @@ Route::prefix('admin')->group(function () {
     });
 });
 
+// Auth routes
+Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 // Dish routes
 Route::prefix('dishes')->group(function () {
     Route::delete('/{dish}', [DishController::class, 'destroy'])->name('admin.dishes.destroy');
@@ -98,5 +106,5 @@ Route::prefix('dishes')->group(function () {
 // Reservation routes
 Route::post('/reservations/{reservation}/assign-table', [ReservationController::class, 'assignTable'])->name('reservations.assignTable');
 
-// Custom pages (keep this at the end to avoid conflicts)
+// Custom pages
 Route::get('/{page:slug}', [CustomerController::class, 'showCustomPage'])->name('customer.page-custom-show');
