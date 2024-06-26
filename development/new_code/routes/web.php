@@ -26,9 +26,9 @@ Route::get('/download-pdf', [MenuController::class, 'downloadPdf'])->name('downl
 // Pickup routes
 Route::prefix('afhalen')->group(function () {
     Route::get('/categories', [PickUpController::class, 'showCategoryMenu'])->name('pick-up.menu-category-show');
-    Route::get('/{category}', [PickUpController::class, 'showDishMenu'])->name('pick-up.menu-dishes-show');
+    Route::get('/categories/{category}', [PickUpController::class, 'showDishMenu'])->name('pick-up.menu-dishes-show');
     Route::post('/bestellen/toevoegen/{dish}', [PickUpController::class, 'addToOrder'])->name('pickup.order.add');
-    Route::get('/winkelwagen', [PickUpController::class, 'showOrders'])->name('pick-up-orders-cart');
+    Route::get('/winkelwagen', [PickUpController::class, 'displayOrders'])->name('orders-cart');
     Route::post('/bestellen', [PickUpController::class, 'processOrders'])->name('pick-up-process-orders');
 });
 

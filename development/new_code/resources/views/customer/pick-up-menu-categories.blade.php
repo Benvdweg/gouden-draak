@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="justify-between flex">
-        <a href="{{ route('pick-up-orders-cart')}}"
+        <a href="{{ route('orders-cart')}}"
            class="flex bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 p-2 rounded-full w-56 justify-center mb-4">
             Naar Winkelwagen
         </a>

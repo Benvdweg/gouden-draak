@@ -51,7 +51,7 @@ class DishController extends Controller
 
             Dish::create([
                 'name' => $request->input('name'),
-                'price' => (float)$request->input('price'),
+                'price' => (float) $request->input('price'),
                 'description' => $request->input('description'),
                 'type' => $request->input('type'),
                 'menu_number' => $nextMenuNumber,
