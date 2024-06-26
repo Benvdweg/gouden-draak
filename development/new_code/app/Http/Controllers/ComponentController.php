@@ -11,6 +11,7 @@ use App\Services\ComponentMovementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mews\Purifier\Facades\Purifier;
+use Throwable;
 
 class ComponentController extends Controller
 {
@@ -77,6 +78,9 @@ class ComponentController extends Controller
         return redirect()->route('cms.show.page', ['page' => $page])->with('success', 'Component is geupdate!');
     }
 
+    /**
+     * @throws Throwable
+     */
     public function updateComponentOrder(Request $request, Page $page, Component $component)
     {
         if ($request->direction == 'up') {

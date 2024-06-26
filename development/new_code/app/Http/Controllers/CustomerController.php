@@ -7,6 +7,11 @@ use App\Models\Page;
 
 class CustomerController extends Controller
 {
+    public function showHome()
+    {
+        return view('customer.index');
+    }
+
     public function showContact()
     {
         return view('customer.contact');

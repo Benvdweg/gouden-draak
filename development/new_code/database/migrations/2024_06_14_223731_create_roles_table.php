@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->integer('id', true)->unique('id');
             $table->string('name', 60)->nullable()->unique('name');
-
             $table->primary(['id']);
         });
     }

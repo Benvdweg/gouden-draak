@@ -7,7 +7,9 @@
     </div>
 
     <marquee behavior="scroll" direction="left" class="text-[#ffff00] font-bold font-times">
-        Welkom bij De Gouden Draak. Klik op deze tekst om de aanbiedingen van deze week te zien!
+        <a href="{{route('customer.home')}}">
+            Welkom bij De Gouden Draak. Klik op deze tekst om de aanbiedingen van deze week te zien!
+        </a>
     </marquee>
 
     <div class="flex items-center justify-end mr-20">

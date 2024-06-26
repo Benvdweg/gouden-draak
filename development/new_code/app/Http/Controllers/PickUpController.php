@@ -13,6 +13,12 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PickUpController extends Controller
 {
+    public function displayOrders(Request $request)
+    {
+        $orders = $request->session()->get('pickup-orders', []);
+        return view('customer.pick-up-orders', compact('orders'));
+    }
+
     public function showCategoryMenu()
     {
         $categories = DishType::orderBy('type')->get();
@@ -42,13 +48,6 @@ class PickUpController extends Controller
         $orders = $request->session()->get('pickup-orders', []);
 
         return view('customer.pick-up-orders', compact('orders'))->with('success', 'Gerecht toegevoegd aan bestelling.');
-    }
-
-    public function showOrders(Request $request)
-    {
-        $orders = $request->session()->get('pickup-orders', []);
-
-        return view('customer.pick-up-orders', compact('orders'));
     }
 
     public function processOrders(ProcessOrderRequest $request)

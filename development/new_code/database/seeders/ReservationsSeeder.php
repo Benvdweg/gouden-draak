@@ -15,6 +15,8 @@ class ReservationsSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('reservations')->delete();
+
         DB::table('reservations')->insert([
             [
                 'email' => 'john.doe@example.com',

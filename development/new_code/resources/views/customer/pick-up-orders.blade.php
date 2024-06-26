@@ -21,7 +21,7 @@
                     </ul>
                 </div>
             @empty
-                <div class="flex w-full justify-centerst">
+                <div class="flex w-full justify-center ml-[500px]">
                     <p class="text-center">Nog geen gerechten.</p>
                 </div>
             @endforelse

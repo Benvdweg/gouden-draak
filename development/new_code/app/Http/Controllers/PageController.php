@@ -12,7 +12,7 @@ class PageController extends Controller
     {
         $pages = Page::all();
 
-        return view('admin.cms-dashboard', compact('pages'));
+        return view('admin.cms.cms-dashboard', compact('pages'));
     }
 
     public function show(Page $page)
@@ -35,7 +35,7 @@ class PageController extends Controller
 
         $editing = session('editing') ?? 0;
 
-        return view('admin.cms-page-edit', compact('page', 'componentTypes', 'components', 'editing'));
+        return view('admin.cms.cms-page-edit', compact('page', 'componentTypes', 'components', 'editing'));
     }
 
     public function store(StorePageRequest $request)

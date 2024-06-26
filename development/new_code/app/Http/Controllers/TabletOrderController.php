@@ -88,6 +88,7 @@ class TabletOrderController extends Controller
 
     public function processOrders(Request $request)
     {
+        /** @var Reservation $reservation */
         $reservation = session('current_reservation');
 
         $latestOrderLine = OrderLine::join('orders', 'order_lines.order_id', '=', 'orders.id')
@@ -160,9 +161,10 @@ class TabletOrderController extends Controller
 
     public function orderHistory()
     {
+        /** @var Reservation $reservation */
         $reservation = session('current_reservation');
 
-        $orders = Order::where('reservation_id', $reservation->id);
+        $orders = Order::where('reservation_id', $reservation->id)->get();
 
         $orders = $orders->get();
 
