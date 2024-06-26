@@ -15,9 +15,7 @@ use App\Http\Controllers\WaiterCallController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
-Route::get('/', function () {
-    return view('customer.index');
-});
+Route::get('/', [CustomerController::class, 'showHome'])->name('customer.home');
 Route::get('/contact', [CustomerController::class, 'showContact'])->name('customer.contact');
 Route::get('/nieuws', [CustomerController::class, 'showNews'])->name('customer.news');
 Route::get('/menu', [CustomerController::class, 'showMenu'])->name('show.basic.menu');
