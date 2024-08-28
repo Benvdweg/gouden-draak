@@ -16,7 +16,7 @@
             @if(auth()->user()->role_id == 1)
                 <a href="{{ route('admin.news.index') }}"
                    class="bg-white rounded-lg shadow hover:bg-gray-100 transition-all duration-100 p-6">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Nieuws Berichten</h2>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Nieuwsberichten</h2>
                     <p class="text-gray-600">Maak nieuwe nieuws artikelen voor de website.</p>
                 </a>
             @endif

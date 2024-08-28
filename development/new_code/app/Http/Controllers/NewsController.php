@@ -19,6 +19,6 @@ class NewsController extends Controller
         NewsMessage::create($request->validated());
 
         return redirect()->route('admin.news.index')
-            ->with('success', 'Nieuws bericht is aangemaakt');
+            ->with('success', 'Nieuwsbericht is aangemaakt');
     }
 }

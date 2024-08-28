@@ -5,7 +5,7 @@
 
     <div class="container mx-auto mt-10">
         <div class="bg-white p-8 rounded shadow-md w-full md:w-2/3 lg:w-1/2 mx-auto" id="app">
-            <h2 class="text-2xl font-semibold mb-6 text-center">Nieuws Bericht Plaatsen</h2>
+            <h2 class="text-2xl font-semibold mb-6 text-center">Nieuwsbericht Plaatsen</h2>
             <form method="post" action="{{ route('admin.news.store') }}">
                 @csrf
                 <div class="mb-4">
@@ -41,7 +41,7 @@
 
         <div>
             <div class="bg-white p-8 rounded shadow-md w-full md:w-2/3 lg:w-1/2 mx-auto mt-8 mb-8">
-                <h2 class="text-2xl font-semibold mb-6 text-center">Huidige Nieuws Bericht</h2>
+                <h2 class="text-2xl font-semibold mb-6 text-center">Huidige Nieuwsbericht</h2>
                 @if(isset($latestNews))
                     <div class="bg-blue-100 border-t-4 border-blue-500 rounded-b text-blue-900 px-4 py-3 shadow-md mb-4">
                         <h3 class="font-bold text-xl">{{ $latestNews->title }}</h3>
@@ -49,7 +49,7 @@
                         <p class="text-xs text-gray-500">{{ $latestNews->created_at->diffForHumans() }}</p>
                     </div>
                 @else
-                    <p class="text-center">Er zijn nog geen nieuws berichten</p>
+                    <p class="text-center">Er zijn nog geen nieuwsberichten</p>
                 @endif
             </div>
         </div>
