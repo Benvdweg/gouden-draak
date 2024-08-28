@@ -47,8 +47,12 @@ class CheckoutController extends Controller
     public function showComment($orderLineId)
     {
         $orderLine = OrderLine::find($orderLineId);
+        $comments = OrderLine::select('comment')
+            ->groupBy('comment')
+            ->havingRaw('COUNT(comment) > 1')
+            ->get();
 
-        return view('admin.checkout.comment', compact('orderLine'));
+        return view('admin.checkout.comment', compact('orderLine', 'comments'));
     }
 
     public function updateComment(Request $request, $orderId)
@@ -67,3 +71,4 @@ class CheckoutController extends Controller
         return redirect()->route('checkout.orders', compact('orders'))->with('success', 'Opmerking succesvol bijgewerkt.');
     }
 }
+

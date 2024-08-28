@@ -166,8 +166,6 @@ class TabletOrderController extends Controller
 
         $orders = Order::where('reservation_id', $reservation->id)->get();
 
-        $orders = $orders->get();
-
         return view('tablet.order_history', compact('orders'));
     }
 
