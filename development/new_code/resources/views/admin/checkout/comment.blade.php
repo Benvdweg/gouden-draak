@@ -40,11 +40,7 @@
 @section('scripts')
     <script>
         document.getElementById('select-comment').addEventListener('change', function() {
-            // Get the selected comment's value
-            var selectedComment = this.value;
-
-            // Set the textarea value to the selected comment
-            document.getElementById('opmerking').value = selectedComment;
+            document.getElementById('opmerking').value = this.value;
         });
     </script>
 
